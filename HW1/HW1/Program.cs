@@ -16,14 +16,23 @@ namespace HW1
         /// <param name="args"> main arguments.</param>
         public static void Main(string[] args)
         {
-            string testInput = "45 23 1 6 7 83 62 56 23 78 45 45 21 23 24 21 89 72 09 21 2 4 3 6 4";
+            // 1. get list of integers from user
+            Console.Write("Enter numbers in range [0,100]:");
+            string input = Console.ReadLine();
 
-            string[] stringList = testInput.Split(' ');
+            string[] stringList = input.Split(' ');
             int[] integerList = Array.ConvertAll(stringList, int.Parse);
 
+            // 2. add numbers to a bst
+            BinarySearchTree bst = new BinarySearchTree();
+            bst.Insert(integerList);
 
+            // 3. display in sorted order
+            Console.WriteLine("******Sorted BST******");
+            bst.PrintSortedBst(bst.GetRoot());
 
-            Console.WriteLine("Hello World!");
+            // 4. Display stats
+            bst.DisplayStats();
         }
     }
 }

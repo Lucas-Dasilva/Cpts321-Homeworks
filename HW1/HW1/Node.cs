@@ -1,4 +1,4 @@
-﻿// <copyright file="BinarySearchTree.cs" company="PlaceholderCompany">
+﻿// <copyright file="Node.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -10,63 +10,70 @@
 //     O   O O   O  lvl 2
 namespace HW1
 {
-    using System;
-
     /// <summary>
     /// Class node that holds the reference to the left and right node,
     /// and the data value of the current node.
     /// </summary>
     public class Node
     {
+        /// <summary>
+        /// Data value that node holds.
+        /// </summary>
         private int value;
+
+        /// <summary>
+        /// Pointer to left node.
+        /// </summary>
         private Node leftNode;
+
+        /// <summary>
+        /// Pointer to right node.
+        /// </summary>
         private Node rightNode;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Node"/> class.
         /// constructor for node class.
         /// </summary>
-        /// <param name="newValue">newVlaue is the integer value for the new node.</param>
+        /// <param name="newValue">new value is the integer value for the new node.</param>
         public Node(int newValue)
         {
             this.value = newValue;
         }
 
         /// <summary>
-        /// Insert new Node Value.
+        /// Inserts node into BST.
         /// </summary>
-        /// <param name="newValue">newValue is the data from integer list.</param>
-        public void Insert(int newValue)
+        /// <param name="curNode">Holds current node reference.</param>
+        /// <param name="newValue">name="newValue">new value is the data from integer list.</param>
+        public void Insert(Node curNode, int newValue)
         {
             // insert into left node
-            if (this.value > newValue)
+            // else, insert into right node
+            if (curNode.value > newValue)
             {
                 // if left child is null then create new instance
-                if (this.leftNode == null)
+                // else, recursively call until we find an empty node
+                if (curNode.leftNode == null)
                 {
-                    this.leftNode = new Node(newValue);
+                    curNode.leftNode = new Node(newValue);
                 }
-
-                // recursively call until we find an empty node
                 else
                 {
-                    this.Insert(newValue);
+                    this.Insert(curNode.leftNode, newValue);
                 }
             }
-
-            // insert into right node
             else
             {
                 // if right child is null then create new instance
-                if (this.rightNode == null)
+                // else, recursively call until we find an empty node
+                if (curNode.rightNode == null)
                 {
-                    this.rightNode = new Node(newValue);
+                    curNode.rightNode = new Node(newValue);
                 }
-
-                // recursively call until we find an empty node
                 else
                 {
-                    this.Insert(newValue);
+                    this.Insert(curNode.rightNode, newValue);
                 }
             }
         }
@@ -79,6 +86,7 @@ namespace HW1
         {
             return this.value;
         }
+
         /// <summary>
         /// returns Left node of tree.
         /// </summary>
