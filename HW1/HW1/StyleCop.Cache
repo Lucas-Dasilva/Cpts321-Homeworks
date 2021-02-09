@@ -1,9 +1,5 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="404330193">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="BinarySearchTree.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
@@ -31,7 +27,7 @@
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
       <settingsFile>2021/02/03 14:35:52.532</settingsFile>
-      <sourceFile>2021/02/04 18:38:24.840</sourceFile>
+      <sourceFile>2021/02/04 19:16:41.992</sourceFile>
       <parser>2021/02/03 14:31:28.993</parser>
       <StyleCop.CSharp.DocumentationRules>2021/02/03 14:31:28.993</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-353571034</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -50,11 +46,15 @@
     </timestamps>
     <violations />
   </sourcecode>
+  <project key="404330193">
+    <configuration>
+    </configuration>
+  </project>
   <sourcecode name="Program.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
       <settingsFile>2021/02/03 14:35:52.532</settingsFile>
-      <sourceFile>2021/02/04 18:41:17.994</sourceFile>
+      <sourceFile>2021/02/04 19:16:45.904</sourceFile>
       <parser>2021/02/03 14:31:28.993</parser>
       <StyleCop.CSharp.DocumentationRules>2021/02/03 14:31:28.993</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-353571034</StyleCop.CSharp.DocumentationRules.FilesHashCode>

@@ -19,7 +19,7 @@ namespace HW1
         /// <summary>
         /// Data value that node holds.
         /// </summary>
-        private int value;
+        private readonly int value;
 
         /// <summary>
         /// Pointer to left node.
