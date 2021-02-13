@@ -1,5 +1,6 @@
 ﻿namespace HW2
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -14,9 +15,14 @@
         /// Generate list with 10,000 random ints 
         /// </summary>
         /// <returns>list of ints</returns>
-        public List<int> ListCreator()
+        public List<int> CreateList()
         {
+            Random rnd = new Random();
             List<int> randIntList = new List<int>();
+            for (int i = 0; i < 10000; i++)
+            {
+                randIntList.Add(rnd.Next(0,20000));
+            }
             return randIntList;
         }
 
@@ -28,6 +34,13 @@
         public HashSet<int> ListParser(List<int> randIntList)
         {
             HashSet<int> distinctIntSet = new HashSet<int>();
+            foreach (int value in randIntList) // O(n) 
+            {
+                if (!distinctIntSet.Contains(value)) // O(1)
+                {
+                    distinctIntSet.Add(value); // O(1)
+                }
+            }
             return distinctIntSet;
         }
         /// <summary>

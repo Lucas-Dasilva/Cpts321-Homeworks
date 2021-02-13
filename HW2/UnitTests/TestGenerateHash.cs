@@ -13,8 +13,8 @@
         public void TestCreateList()
         {
             GenerateHash testClass = new GenerateHash();
-            List<int> testList = testClass.ListCreator();
-            Assert.IsNotEmpty(testList);
+            List<int> testList = testClass.CreateList();
+            Assert.AreEqual(testList.Count, 10000);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
             List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
             HashSet<int> testSet = testClass.ListParser(testList);
             HashSet<int> testSet2 = new HashSet<int>() { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
-            Assert.AreSame(testSet2, testSet);
+            Assert.AreEqual(testSet, testSet2);
         }
 
         /// <summary>

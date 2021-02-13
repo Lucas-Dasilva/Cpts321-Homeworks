@@ -5,6 +5,18 @@
     public class TestGenerateSort
     {
         /// <summary>
+        /// Test if the listCreator creates list of 10k elements
+        /// </summary>
+        [Test]
+        public void TestCreateList()
+        {
+            GenerateSort testClass = new GenerateSort();
+            List<int> testList = testClass.CreateList();
+            Assert.AreEqual(testList.Count, 10000);
+        }
+
+
+        /// <summary>
         /// Test if the sortlist is returning a sorted List
         /// </summary>
         [Test]
@@ -13,7 +25,7 @@
             GenerateSort testClass = new GenerateSort();
             List<int> testList = new List<int>() { 34, 1, 2, 5, 52, 67, 23 };
             List<int> sortedList = testClass.SortList(testList);
-            Assert.AreSame(sortedList, new List<int>() { 1, 2, 5, 23, 34, 52, 67 });
+            Assert.AreEqual(sortedList, new List<int>() { 1, 2, 5, 23, 34, 52, 67 });
         }
 
         /// <summary>

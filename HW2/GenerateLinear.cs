@@ -7,7 +7,7 @@
         /// Generate list with 10,000 random ints 
         /// </summary>
         /// <returns>list of ints</returns>
-        public List<int> ListCreator()
+        public List<int> CreateList()
         {
             List<int> randIntList = new List<int>();
             return randIntList;

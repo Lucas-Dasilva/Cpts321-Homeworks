@@ -11,8 +11,8 @@
         public void TestCreateList()
         {
             GenerateLinear testClass = new GenerateLinear();
-            List<int> testList = testClass.ListCreator();
-            Assert.IsNotEmpty(testList);
+            List<int> testList = testClass.CreateList();
+            Assert.AreEqual(testList.Count, 10000);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
             List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
             int[] testSet = testClass.ListParser(testList);
             int[] testSet2 = new int[] { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
-            Assert.AreSame(testSet2, testSet);
+            Assert.AreEqual(testSet2, testSet);
         }
 
         /// <summary>
