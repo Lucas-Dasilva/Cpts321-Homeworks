@@ -37,7 +37,8 @@
         public void TestCountDistinctInts()
         {
             GenerateHash testClass = new GenerateHash();
-            HashSet<int> testSet = new HashSet<int>() { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
+            List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
+            HashSet<int> testSet = testClass.ListParser(testList);
             int testCount = testClass.CountDistinctInts(testSet);
             Assert.AreEqual(9, testCount);
         }
