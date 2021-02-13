@@ -1,4 +1,9 @@
-﻿namespace HW2
+﻿//-----------------------------------------------------------------------
+// <copyright file="GenerateSort.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace HW2
 {
     using System;
     using System.Collections.Generic;
@@ -13,19 +18,10 @@
     public class GenerateSort
     {
         /// <summary>
-        /// Calls all functions from this class
-        /// </summary>
-        /// <returns>returns unique numbers for generateHash</returns>
-        public int ConstructSort(List<int> ls)
-        {
-            int count = this.LinearParse(ls);
-            return count;
-        }
-
-        /// <summary>
         /// Sort the list using built in function
         /// </summary>
-        /// <returns>Returns sorted list of ints</returns>
+        /// <param name="unsortedList"> random List</param>
+        /// <returns>Returns sorted list of integers</returns>
         public List<int> SortList(List<int> unsortedList)
         {
             unsortedList.Sort();
@@ -34,34 +30,27 @@
 
 
         /// <summary>
-        /// Determine the amount of distinct ints in:
+        /// Determine the amount of distinct integers in:
         /// O(1) storage, no dynamic memory allocation, and O(n) time complexity.
         /// </summary>
         /// <param name="sortedIntList"> list with 10k random integers</param>
-        /// <returns>Distinct integer list hashset</returns>
+        /// <returns>Distinct integer list hash set</returns>
         public int NonDynamicLinearParse(List<int> sortedIntList) // O(n)
         {
+            // dup is used to track the amount of duplicates we run over
             int dup = 0;
-            for(int i =0; i < sortedIntList.Count; i++)
+            // Decrease bounds by 2 because I don't want list go out of range
+            for (int i = 0; i < (sortedIntList.Count - 1); i++)
             {
-                if (i != 9999 && sortedIntList[i] == sortedIntList[i+1])
+                // If the next value is equal to current value, increment dup
+                if (sortedIntList[i] == sortedIntList[i + 1])
                 {
                     dup += 1;
                 }
             }
-            return (sortedIntList.Count-dup);
+            // return the total length of list minus the amount of diplicates found
+            return (sortedIntList.Count - dup);
         } 
-        
-        /// <summary>
-        /// Determine the amount of distinct ints in O(n) time complexity
-        /// </summary>
-        /// <param name="sortedIntList"> list with 10k random integers</param>
-        /// <returns>Distinct integer list hashset</returns>
-        public int LinearParse(List<int> sortedIntList)
-        {
-            int distinctInts = 0;
-            return distinctInts;
-        }
 
     }
 

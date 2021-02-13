@@ -1,23 +1,16 @@
-﻿namespace HW2
+﻿//-----------------------------------------------------------------------
+// <copyright file="TestGenerateSort.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace HW2
 {
     using NUnit.Framework;
     using System.Collections.Generic;
     public class TestGenerateSort
     {
         /// <summary>
-        /// Test if the listCreator creates list of 10k elements
-        /// </summary>
-        [Test]
-        public void TestCreateList()
-        {
-            GenerateSort testClass = new GenerateSort();
-            //List<int> testList = testClass.CreateList();
-            //Assert.AreEqual(testList.Count, 10000);
-        }
-
-
-        /// <summary>
-        /// Test if the sortlist is returning a sorted List
+        /// Test if the sort list is returning a sorted List
         /// </summary>
         [Test]
         public void TestSortList()
@@ -29,30 +22,17 @@
         }
 
         /// <summary>
-        /// Test if NondyanmicLinearParse returns the correct number of distinct ints
+        /// Test if Non dynamic Linear Parse returns the correct number of 
+        /// distinct integers
         /// the list is sorted
         /// </summary>
         [Test]
         public void TestNonDynamicLinearParse()
         {
             GenerateSort testClass = new GenerateSort();
-            List<int> testList = new List<int>() { 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 };
+            List<int> testList = new List<int>() { 1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7 };
             int testSet = testClass.NonDynamicLinearParse(testList);
-            Assert.AreEqual(testSet, 7);
+            Assert.AreEqual(7, testSet);
         }
-
-        /// <summary>
-        /// Testing if number of sorted List distinct integers is correct
-        /// Can be dynamic
-        /// </summary>
-        [Test]
-        public void TestLinearParse()
-        {
-            GenerateSort testClass = new GenerateSort();
-            List<int> testList = new List<int>() { 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 };
-            int testSet = testClass.LinearParse(testList);
-            Assert.AreEqual(testSet, 7);
-        }
-
     }
 }

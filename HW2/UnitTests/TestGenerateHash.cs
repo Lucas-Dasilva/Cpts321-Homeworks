@@ -1,5 +1,11 @@
-﻿namespace HW2
+﻿//-----------------------------------------------------------------------
+// <copyright file="TestGenerateHash.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace HW2
 {
+    using System;
     using NUnit.Framework;
     using System.Collections.Generic;
 
@@ -12,13 +18,14 @@
         [Test]
         public void TestCreateList()
         {
+            Random rnd = new Random();
             GenerateHash testClass = new GenerateHash();
-            //List<int> testList = testClass.CreateList();
-            //Assert.AreEqual(testList.Count, 10000);
+            List<int> testList = testClass.CreateList(rnd);
+            Assert.AreEqual(testList.Count, 10000);
         }
 
         /// <summary>
-        /// Test if FilterList() returns hashset with only distinct integers
+        /// Test if FilterList() returns hash set with only distinct integers
         /// Do not alter the list in any way 
         /// Determine time complexity
         /// Use MSDN to help with this
@@ -34,7 +41,7 @@
         }
 
         /// <summary>
-        /// Testing if the number of ints counted are correct
+        /// Testing if the number of integers counted are correct
         /// </summary>
         [Test]
         public void TestCountDistinctInts()

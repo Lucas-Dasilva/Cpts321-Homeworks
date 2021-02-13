@@ -1,10 +1,8 @@
-﻿//Ok so there's a small bug, where sometimes the amount of unique 
-//memebers differ by 1 for my constant storage function that's 
-//because I didn't realize we were using the same random seed
-//for all implementationsuntil the very end so I didn't have time
-//to go back and analyse little bugs, the same goes for my test
-//cases. I was testing everything with the idea in mind that all
-//seeds would be different. Sorry about that..
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace HW2
 {
     using System;
@@ -13,6 +11,9 @@ namespace HW2
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
+    /// <summary>
+    /// Where we start by creating form
+    /// </summary>
     static partial class Program
     {
 
