@@ -24,9 +24,9 @@ namespace HW2
 
             // Generate and display 5 random integers between 0 and 100.
             Console.WriteLine("Five random integers between 0 and 100:");
-            //for (int ctr = 0; ctr <= 4; ctr++)
+            // for (int ctr = 0; ctr <= 4; ctr++)
             //    this.textBox1.Text("{0,8:N0}", rand.Next(101));
-            //Console.WriteLine();
+            // Console.WriteLine();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

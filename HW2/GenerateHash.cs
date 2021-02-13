@@ -30,11 +30,17 @@
             HashSet<int> distinctIntSet = new HashSet<int>();
             return distinctIntSet;
         }
+        /// <summary>
+        /// Counts the amountof distinct integers in list
+        /// </summary>
+        /// <param name="distinctIntSet"></param>
+        /// <returns>number of elements in hashset</returns>
         public int CountDistinctInts(HashSet<int> distinctIntSet)
         {
             return distinctIntSet.Count;
         }
         
     }
+
     
 }

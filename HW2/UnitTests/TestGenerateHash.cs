@@ -19,12 +19,15 @@
 
         /// <summary>
         /// Test if FilterList() returns hashset with only distinct integers
+        /// Do not alter the list in any way 
+        /// Determine time complexity
+        /// Use MSDN to help with this
         /// </summary>
         [Test]
         public void TestFilterList()
         {
             GenerateHash testClass = new GenerateHash();
-            List<int> testList = new List<int>() { 1, 2, 3, 3, 3,5, 2, 8, 34, 546, 3434, 3434, 545 };
+            List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
             HashSet<int> testSet = testClass.ListParser(testList);
             HashSet<int> testSet2 = new HashSet<int>() { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
             Assert.AreSame(testSet2, testSet);

@@ -1,10 +1,8 @@
-﻿namespace HW2
+﻿namespace HW2.Linear
 {
     using NUnit.Framework;
     using System.Collections.Generic;
-
-    [TestFixture]
-    class TestGenerateHash
+    public class TestGenerateLinear
     {
         /// <summary>
         /// Test if the listCreator creates list of 10k elements
@@ -12,21 +10,24 @@
         [Test]
         public void TestCreateList()
         {
-            GenerateHash testClass = new GenerateHash();
+            GenerateLinear testClass = new GenerateLinear();
             List<int> testList = testClass.ListCreator();
             Assert.IsNotEmpty(testList);
         }
 
         /// <summary>
         /// Test if FilterList() returns hashset with only distinct integers
+        /// Do not alter the list in any way 
+        /// Determine time complexity
+        /// Use MSDN to help with this
         /// </summary>
         [Test]
         public void TestFilterList()
         {
-            GenerateHash testClass = new GenerateHash();
-            List<int> testList = new List<int>() { 1, 2, 3, 3, 3,5, 2, 8, 34, 546, 3434, 3434, 545 };
-            HashSet<int> testSet = testClass.ListParser(testList);
-            HashSet<int> testSet2 = new HashSet<int>() { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
+            GenerateLinear testClass = new GenerateLinear();
+            List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
+            int[] testSet = testClass.ListParser(testList);
+            int[] testSet2 = new int[] { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
             Assert.AreSame(testSet2, testSet);
         }
 
@@ -34,16 +35,14 @@
         /// Testing if the number of ints counted are correct
         /// </summary>
         [Test]
-        public void TestCountDistinctInts()
+        public void TestCountInts()
         {
-            GenerateHash testClass = new GenerateHash();
+            GenerateLinear testClass = new GenerateLinear();
             List<int> testList = new List<int>() { 1, 2, 3, 3, 3, 5, 2, 8, 34, 546, 3434, 3434, 545 };
-            HashSet<int> testSet = testClass.ListParser(testList);
+            int[] testSet = testClass.ListParser(testList);
             int testCount = testClass.CountDistinctInts(testSet);
             Assert.AreEqual(9, testCount);
         }
-
-
 
     }
 }
