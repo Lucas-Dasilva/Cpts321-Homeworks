@@ -12,12 +12,21 @@
     public class GenerateHash
     {
         /// <summary>
+        /// Calls all functions from this class
+        /// </summary>
+        /// <returns>returns unique numbers for generateHash</returns>
+        public int ConstructHash(List<int> ls)
+        {
+            HashSet<int> set = this.ListParser(ls);
+            int count = this.CountDistinctInts(set);
+            return count;
+        }
+        /// <summary>
         /// Generate list with 10,000 random ints 
         /// </summary>
         /// <returns>list of ints</returns>
-        public List<int> CreateList()
+        public List<int> CreateList(Random rnd)
         {
-            Random rnd = new Random();
             List<int> randIntList = new List<int>();
             for (int i = 0; i < 10000; i++)
             {

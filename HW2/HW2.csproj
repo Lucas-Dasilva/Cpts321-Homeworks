@@ -64,7 +64,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GenerateHash.cs" />
-    <Compile Include="GenerateLinear.cs" />
+    <Compile Include="GenerateConstant.cs" />
     <Compile Include="GenerateSort.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

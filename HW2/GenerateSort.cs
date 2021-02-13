@@ -1,5 +1,6 @@
-﻿namespace HW2.Sort
+﻿namespace HW2
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -12,13 +13,13 @@
     public class GenerateSort
     {
         /// <summary>
-        /// Creates List of unsorted random ints
+        /// Calls all functions from this class
         /// </summary>
-        /// <returns></returns>
-        public List<int> CreateList()
+        /// <returns>returns unique numbers for generateHash</returns>
+        public int ConstructSort(List<int> ls)
         {
-            List<int> randIntList = new List<int>();
-            return randIntList;
+            int count = this.LinearParse(ls);
+            return count;
         }
 
         /// <summary>
@@ -27,7 +28,7 @@
         /// <returns>Returns sorted list of ints</returns>
         public List<int> SortList(List<int> unsortedList)
         {
-            
+            unsortedList.Sort();
             return unsortedList;
         }
 
@@ -38,11 +39,19 @@
         /// </summary>
         /// <param name="sortedIntList"> list with 10k random integers</param>
         /// <returns>Distinct integer list hashset</returns>
-        public int NonDynamicLinearParse(List<int> sortedIntList)
+        public int NonDynamicLinearParse(List<int> sortedIntList) // O(n)
         {
-            int distinctInts = 0;
-            return distinctInts;
-        }        
+            int dup = 0;
+            for(int i =0; i < sortedIntList.Count; i++)
+            {
+                if (i != 9999 && sortedIntList[i] == sortedIntList[i+1])
+                {
+                    dup += 1;
+                }
+            }
+            return (sortedIntList.Count-dup);
+        } 
+        
         /// <summary>
         /// Determine the amount of distinct ints in O(n) time complexity
         /// </summary>
