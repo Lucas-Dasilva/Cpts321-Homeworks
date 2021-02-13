@@ -27,8 +27,12 @@
         /// <returns>Distinct integer list hashset</returns>
         public HashSet<int> ListParser(List<int> randIntList)
         {
-            HashSet<int> distinceIntSet = new HashSet<int>();
-            return distinceIntSet;
+            HashSet<int> distinctIntSet = new HashSet<int>();
+            return distinctIntSet;
+        }
+        public int CountDistinctInts(HashSet<int> distinctIntSet)
+        {
+            return distinctIntSet.Count;
         }
         
     }

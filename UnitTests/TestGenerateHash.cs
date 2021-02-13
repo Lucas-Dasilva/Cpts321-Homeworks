@@ -30,6 +30,18 @@
             Assert.AreSame(testSet2, testSet);
         }
 
+        /// <summary>
+        /// Testing if the number of ints counted are correct
+        /// </summary>
+        [Test]
+        public void TestCountDistinctInts()
+        {
+            GenerateHash testClass = new GenerateHash();
+            HashSet<int> testSet = new HashSet<int>() { 1, 2, 3, 5, 8, 34, 546, 3434, 545 };
+            int testCount = testClass.CountDistinctInts(testSet);
+            Assert.AreEqual(9, testCount);
+        }
+
 
 
     }
