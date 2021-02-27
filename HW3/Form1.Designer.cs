@@ -75,6 +75,7 @@ namespace HW3
             this.loadFile.Name = "loadFile";
             this.loadFile.Size = new System.Drawing.Size(256, 22);
             this.loadFile.Text = "Load from file...";
+            this.loadFile.Click += new System.EventHandler(this.loadFile_Click);
             // 
             // loadFibonacciNumbersfirst50ToolStripMenuItem
             // 
@@ -82,12 +83,14 @@ namespace HW3
             this.loadFibonacciNumbersfirst50ToolStripMenuItem.Name = "loadFibonacciNumbersfirst50ToolStripMenuItem";
             this.loadFibonacciNumbersfirst50ToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.loadFibonacciNumbersfirst50ToolStripMenuItem.Text = "Load Fibonacci numbers (first 50)";
+            this.loadFibonacciNumbersfirst50ToolStripMenuItem.Click += new System.EventHandler(this.loadFibonacciNumbersfirst50ToolStripMenuItem_Click);
             // 
             // loadFib100
             // 
             this.loadFib100.Name = "loadFib100";
             this.loadFib100.Size = new System.Drawing.Size(256, 22);
             this.loadFib100.Text = "Load Fibonacci numbers (first 100)";
+            this.loadFib100.Click += new System.EventHandler(this.loadFib100_Click);
             // 
             // toolStripSeparator1
             // 
@@ -99,6 +102,7 @@ namespace HW3
             this.saveToFileToolStripMenuItem.Name = "saveToFileToolStripMenuItem";
             this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.saveToFileToolStripMenuItem.Text = "Save to file...";
+            this.saveToFileToolStripMenuItem.Click += new System.EventHandler(this.saveToFileToolStripMenuItem_Click);
             // 
             // menuStrip
             // 
@@ -141,14 +145,6 @@ namespace HW3
         private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;
 
-        /// <summary>
-        /// Read all the text from the test reader object and put it in the text box in interface
-        /// </summary>
-        /// <param name="sr">Object to read text</param>
-        private void LoadText(System.IO.TextReader sr)
-        {
-            sr.ReadToEnd();
-        }
     }
 }
 
