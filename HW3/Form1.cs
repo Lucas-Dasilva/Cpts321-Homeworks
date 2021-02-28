@@ -1,5 +1,9 @@
-﻿
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Form1.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+// Lucas Da Silva (11631988)
+//-----------------------------------------------------------------------
 namespace HW3
 {
     using System;
@@ -45,12 +49,12 @@ namespace HW3
         /// </summary>
         /// <param name="sender">Contains a reference to the control/object that raised the event.</param>
         /// <param name="e">Contains event data</param>
-        private void OpenFileButton_FileOk(object sender, CancelEventArgs e)
+        private void openFileButton_FileOk(object sender, CancelEventArgs e)
         {
 
         }
 
-        private void TextBox_TextChanged(object sender, EventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -69,7 +73,7 @@ namespace HW3
         /// </summary>
         /// <param name="sender">Contains a reference to the control/object that raised the event.</param>
         /// <param name="e">Contains event data</param>
-        private void LoadFile_Click(object sender, EventArgs e)
+        private void loadFile_Click(object sender, EventArgs e)
         {
             if (openFileButton.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -93,7 +97,7 @@ namespace HW3
         /// </summary>
         /// <param name="sender">Contains a reference to the control/object that raised the event.</param>
         /// <param name="e">Contains event data</param>
-        private void LoadFibonacciNumbersfirst50ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadFibonacciNumbersfirst50ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FibonacciTextReader fibonacci = new FibonacciTextReader(50);
             this.textBox.Text = fibonacci.ReadToEnd();
@@ -104,7 +108,7 @@ namespace HW3
         /// </summary>
         /// <param name="sender">Contains a reference to the control/object that raised the event.</param>
         /// <param name="e">Contains event data</param>
-        private void LoadFib100_Click(object sender, EventArgs e)
+        private void loadFib100_Click(object sender, EventArgs e)
         {
             FibonacciTextReader fibonacci = new FibonacciTextReader(100);
             this.textBox.Text = fibonacci.ReadToEnd();
@@ -115,21 +119,20 @@ namespace HW3
         /// </summary>
         /// <param name="sender">Contains a reference to the control/object that raised the event.</param>
         /// <param name="e">Contains event data</param>
-        private void SaveToFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveToFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // code taken from stream writer documentation
+            // priginally I was using binarywriter but there was some weird glitch so switched to stream
             SaveFileDialog save = new SaveFileDialog();
-            StreamWriter myStream = new StreamWriter(save.FileName);
+            save.Filter = "Text Files|*.txt";
 
-            save.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            
-            // If dialog is shown
             if (save.ShowDialog() == DialogResult.OK)
             {
+                StreamWriter myStream = new StreamWriter(save.FileName);
                 myStream.WriteLine(this.textBox.Text);
                 myStream.Close();
             }
+
+
         }
     }
 }
-

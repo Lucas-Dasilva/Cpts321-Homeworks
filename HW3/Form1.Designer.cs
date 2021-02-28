@@ -1,4 +1,10 @@
-﻿
+﻿//-----------------------------------------------------------------------
+// <copyright file="Form1.Designer.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+// Lucas Da Silva (11631988)
+//-----------------------------------------------------------------------
+
 namespace HW3
 {
     partial class Form1
@@ -48,7 +54,7 @@ namespace HW3
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox.Size = new System.Drawing.Size(269, 630);
+            this.textBox.Size = new System.Drawing.Size(269, 459);
             this.textBox.TabIndex = 0;
             this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -118,7 +124,7 @@ namespace HW3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(269, 657);
+            this.ClientSize = new System.Drawing.Size(269, 486);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
