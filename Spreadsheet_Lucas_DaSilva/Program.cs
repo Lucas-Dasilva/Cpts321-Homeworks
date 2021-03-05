@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Spreadsheet_Lucas_DaSilva
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Cpts321
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
     static class Program
     {
         /// <summary>
