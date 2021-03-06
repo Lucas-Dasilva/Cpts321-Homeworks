@@ -6,13 +6,16 @@
 namespace Cpts321
 {
     using System.ComponentModel;
+
     /// <summary>
     /// This class represents one cell in the worksheet
     /// </summary>
     public abstract class Cell : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Represents cell even changed
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
