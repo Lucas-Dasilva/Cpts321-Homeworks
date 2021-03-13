@@ -5,13 +5,30 @@
 //-----------------------------------------------------------------------
 
 
-namespace SpreadsheetEngine
+namespace Cpts321
 {
-    partial class ExpressionTree
+    using System.Collections.Generic;
+
+    public class ConstantNode : ExpressionTreeNode
     {
-        private class ConstantNode : Node
+        private readonly double value;
+
+
+        private Dictionary<string, double> variables;
+
+        public ConstantNode(double value)
         {
-            public double Value { get; set; }
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Returns the value of the node using the dictionary of variables, if not found value will be 0.0
+        /// </summary>
+        /// <returns>0.0 or value assigned to the variable in the dictionary</returns>
+        override public double Evaluate()
+        {
+            return value;
         }
     }
+
 }

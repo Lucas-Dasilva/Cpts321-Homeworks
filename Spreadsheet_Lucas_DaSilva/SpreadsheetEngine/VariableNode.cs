@@ -5,13 +5,37 @@
 //-----------------------------------------------------------------------
 
 
+
 namespace Cpts321
 {
-    partial class ExpressionTree
+    using System.Collections.Generic;
+
+    public class VariableNode : ExpressionTreeNode
     {
-        private class VariableNode : Node
+        private readonly string name;
+
+
+        private Dictionary<string, double> variables;
+
+        public VariableNode(string name, ref Dictionary<string, double> variables)
         {
-            public string Name { get; set; }
+            this.name = name;
+            this.variables = variables;
+        }
+
+        /// <summary>
+        /// Returns the value of the node using the dictionary of variables, if not found value will be 0.0
+        /// </summary>
+        /// <returns>0.0 or value assigned to the variable in the dictionary</returns>
+        override public double Evaluate()
+        {
+            double value = 0.0;
+            if (this.variables.ContainsKey(this.name))
+            {
+                value = this.variables[this.name];
+            }
+            return value;
         }
     }
+    
 }

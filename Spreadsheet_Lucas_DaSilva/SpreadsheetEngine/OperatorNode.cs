@@ -5,22 +5,21 @@
 //-----------------------------------------------------------------------
 
 
-namespace SpreadsheetEngine
+namespace Cpts321
 {
-    partial class ExpressionTree
+    public abstract class OperatorNode : ExpressionTreeNode
     {
-        private class OperatorNode : Node
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum Associative
         {
-            public OperatorNode(char c)
-            {
-                Operator = c;
-                Left = Right = null;
-            }
+            Right,
+            Left
+        };
+        public char Operator { get; set; }
 
-            public char Operator { get; set; }
-
-            public Node Left { get; set; }
-            public Node Right { get; set; }
-        }
+        public ExpressionTreeNode Left { get; set; }
+        public ExpressionTreeNode Right { get; set; }
     }
 }

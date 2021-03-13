@@ -5,12 +5,10 @@
 //-----------------------------------------------------------------------
 
 
-namespace SpreadsheetEngine
+namespace Cpts321
 {
-    partial class ExpressionTree
+    public abstract class ExpressionTreeNode
     {
-        private abstract class Node
-        {
-        }
+        public abstract double Evaluate();
     }
 }
