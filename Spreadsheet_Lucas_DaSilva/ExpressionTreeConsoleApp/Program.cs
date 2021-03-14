@@ -9,11 +9,13 @@ namespace Cpts321
 
             while (true)
             {
+                InfixToPostfix postfix = new InfixToPostfix();
+
                 Console.Write("Enter expression: ");
-                string line = Console.ReadLine();
+                string line = Console.ReadLine(); 
+                line = postfix.Convert(line);  //Converting from infix to postfix
                 ExpressionTree exp = new ExpressionTree(line);
                 Console.WriteLine(exp.Evaluate().ToString());
-
                 Console.ReadKey();
             }
         }

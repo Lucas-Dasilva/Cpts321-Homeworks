@@ -17,33 +17,46 @@ namespace Cpts321
     {
         private Dictionary<string, double> variables;
 
+        private ExpressionTreeNode root;
+
         private string expression;
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionTree.ExpressionTree"/> class.
         /// </summary>
         public ExpressionTree(string exp)
         {
+
+            this.expression = exp;
             Stack<ExpressionTreeNode> NodeStack = new Stack<ExpressionTreeNode>();
-            OperatorNodeFactory OpFact = new OperatorNodeFactory();
-            double value = 0.0;
+            OperatorNodeFactory opFact = new OperatorNodeFactory();
+            double tmpValue = 0.0;
+
             for (int i = 0; i < exp.Length; i++)
             {
+                char c = exp[i];
                 //checking if it's an operrand
-                if (exp[i] == '/' || exp[i] == '*' || exp[i] == '+' || exp[i] == '-')
+                if (c == '/' || c == '*' || c == '+' || c == '-')
                 {
-                    NodeStack.Pop();
-                    NodeStack.Pop();
-                    NodeStack.Push(OpFact.CreateOperatorNode(exp[i]));
+                    // Popping two operands 
+                    ExpressionTreeNode tmp1 = NodeStack.Pop();
+                    ExpressionTreeNode tmp2 = NodeStack.Pop();
+                    
+                    //Creating operator node then having it point to the two operands
+                    OperatorNode opNode = opFact.CreateOperatorNode(c);
+                    opNode.Left = tmp1;
+                    opNode.Right = tmp2;
+                    NodeStack.Push(opNode);
                 }
                 else
                 {
                     try
                     {
-                        NodeStack.Push(new ConstantNode((double)exp[i]));
+                        ExpressionTreeNode consNode = new ConstantNode(char.GetNumericValue(c));
+                        NodeStack.Push(consNode);
                     }
-                    catch
+                    catch(Exception e)
                     {
-
+                        Console.WriteLine(e.Message);
                     }
                 }
 
@@ -51,12 +64,12 @@ namespace Cpts321
             }
         }
 
-            /// <summary>
-            /// Sets the specified variable within the ExpressionTree variables dictionary
-            /// </summary>
-            /// <param name="variableName"></param>
-            /// <param name="variableValue"></param>
-            public void SetVariable(string name, double value)
+        /// <summary>
+        /// Sets the specified variable within the ExpressionTree variables dictionary
+        /// </summary>
+        /// <param name="variableName"></param>
+        /// <param name="variableValue"></param>
+        public void SetVariable(string name, double value)
         {
             this.variables.Add(name, value);
         }
