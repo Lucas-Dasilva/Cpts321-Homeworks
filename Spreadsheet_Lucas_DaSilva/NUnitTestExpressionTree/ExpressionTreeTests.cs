@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Cpts321
+namespace CptS321
 {
     [TestFixture]
     public class ExpressionTreeTests

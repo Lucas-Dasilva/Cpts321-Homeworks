@@ -3,7 +3,7 @@
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Cpts321
+namespace CptS321
 {
     using System.ComponentModel;
 

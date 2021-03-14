@@ -5,14 +5,13 @@
 //-----------------------------------------------------------------------
 
 
-namespace Cpts321
+namespace CptS321
 {
     using System.Collections.Generic;
 
     public class ConstantNode : ExpressionTreeNode
     {
         private readonly double value;
-
 
         private Dictionary<string, double> variables;
 

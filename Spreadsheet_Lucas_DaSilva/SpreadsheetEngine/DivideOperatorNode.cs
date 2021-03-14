@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cpts321
+namespace CptS321
 {
     class DivideOperatorNode : OperatorNode
     {

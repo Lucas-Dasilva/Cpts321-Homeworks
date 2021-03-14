@@ -1,22 +1,30 @@
-﻿using System;
-
-namespace Cpts321
+﻿
+//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="CompanyName">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace CptS321
 {
+    using System;
+    using System.Text.RegularExpressions;
+
+    /// <summary>
+    /// Opening Class of Setup, where we initialize Setup object and call setup.run
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Start of project
+        /// </summary>
+        /// <param name="args">arguments passed if any</param>
         public static void Main(string[] args)
         {
 
             while (true)
             {
-                InfixToPostfix postfix = new InfixToPostfix();
-
-                Console.Write("Enter expression: ");
-                string line = Console.ReadLine(); 
-                line = postfix.Convert(line);  //Converting from infix to postfix
-                ExpressionTree exp = new ExpressionTree(line);
-                Console.WriteLine(exp.Evaluate().ToString());
-                Console.ReadKey();
+                Setup initialize = new Setup();
+                initialize.Start();
             }
         }
     }

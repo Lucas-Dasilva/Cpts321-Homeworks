@@ -6,19 +6,21 @@
 
 
 
-namespace Cpts321
+namespace CptS321
 {
     using System;
 
-
+    /// <summary>
+    /// Operator factory class used for creating the operator nodes
+    /// </summary>
     public class OperatorNodeFactory 
     {
         /// <summary>
-        /// Returns an OperatorNode
+        /// Returns an OperatorNode depending on the character
         /// </summary>
         public OperatorNode CreateOperatorNode(char c)
         {
-
+            // picking case for operator
             switch (c)
             {
                 case '+':
