@@ -1,11 +1,8 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Spreadsheet.cs" company="Lucas Da Silva 11631988">
+// <copyright file="OperatorNodeFactory.cs" company="Lucas Da Silva 11631988">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-
-
-
 namespace CptS321
 {
     using System;
@@ -18,13 +15,15 @@ namespace CptS321
         /// <summary>
         /// Returns an OperatorNode depending on the character
         /// </summary>
+        /// <param name="c">The character of the operator</param>
+        /// <returns>Returns the operator Node</returns>
         public OperatorNode CreateOperatorNode(char c)
         {
             // picking case for operator
             switch (c)
             {
                 case '+':
-                    return new PlusOperatorNode{ };
+                    return new PlusOperatorNode { };
                 case '-':
                     return new MinusOperatorNode { };
                 case '*':
@@ -35,7 +34,6 @@ namespace CptS321
                     throw new NotSupportedException(
                         "Operator " + c + " not supported.");
             }
-
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Spreadsheet.cs" company="Lucas Da Silva 11631988">
+// <copyright file="InfixToPostfix.cs" company="Lucas Da Silva 11631988">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 // This code was built using these two sources as help 
 // http://math.oxford.emory.edu/site/cs171/shuntingYardAlgorithm/ 
 // https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/
-
-
-/// <summary>
-/// Infix to post fix helper
-/// </summary>
 namespace CptS321
 {
     using System;
@@ -32,24 +27,25 @@ namespace CptS321
             Stack<string> postfix = new Stack<string>();
             string[] error = new string[1];
             error[0] = "not valid";
+
             // initializing empty stack  
             Stack<string> stack = new Stack<string>();
 
             for (int i = 0; i < exp.Length; ++i)
             {
-
                 // If the incoming symbols is a digit
                 // If the incoming symbol is a left parenthesis, push it on the stack.
                 // If the incoming symbol is a right parenthesis: discard the right parenthesis, 
                 // pop and print the stack symbols until you see a left parenthesis.Pop the left
                 // parenthesis and discard it.
                 // else, we found an operand so print it postfix
-                if (exp[i] == "*" || exp[i] == "+" || exp[i] == "-" || exp[i] == "/" )
+                if (exp[i] == "*" || exp[i] == "+" || exp[i] == "-" || exp[i] == "/")
                 {
                     while (stack.Count > 0 && Precedence(exp[i]) <= Precedence(stack.Peek()))
                     {
                         postfix.Push(stack.Pop());
                     }
+
                     stack.Push(exp[i]);
                 }
                 else if (exp[i] == "(")
@@ -76,22 +72,22 @@ namespace CptS321
                 {
                     postfix.Push(exp[i]);
                 }
-
             }
+
             // pop all the operators from the stack  
             while (stack.Count > 0)
             {
                 postfix.Push(stack.Pop());
             }
 
-            return postfix.ToArray(); //full fledged string
+            return postfix.ToArray(); // full fledged string
         }
 
         /// <summary>
-        /// Finding precendence of the character
+        /// Finding precedence of the character
         /// </summary>
-        /// <param name="c">Character of infix</param>
-        /// <returns>the precendence</returns>
+        /// <param name="op">Character of infix</param>
+        /// <returns>the precedence</returns>
         internal static int Precedence(string op)
         {
             switch (op)
@@ -104,10 +100,8 @@ namespace CptS321
                 case "/":
                     return 2;
             }
+
             return -1;
         }
-
-
     }
 }
-

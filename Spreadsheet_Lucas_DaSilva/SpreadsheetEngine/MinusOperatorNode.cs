@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="MinusOperatorNode.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace CptS321
 {
+    /// <summary>
+    /// The minus operator class that performs subtraction
+    /// </summary>
     public class MinusOperatorNode : OperatorNode
     {
         /// <summary>
-        /// Declaring operatorr character
+        /// Declaring operator character
         /// </summary>
-        public static char Operator => '-';
+        public static new char Operator => '-';
 
         /// <summary>
-        /// Declaring operation precendence
+        /// Declaring operation precedence
         /// </summary>
-        public static ushort Precendence => 7;
+        public static ushort Precedence => 7;
 
         /// <summary>
         /// Declaring operation associativity

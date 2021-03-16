@@ -1,10 +1,8 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Spreadsheet.cs" company="Lucas Da Silva 11631988">
+// <copyright file="OperatorNode.cs" company="Lucas Da Silva 11631988">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-
-
 namespace CptS321
 {
     /// <summary>
@@ -17,22 +15,29 @@ namespace CptS321
         /// </summary>
         public enum Associative
         {
+            /// <summary>
+            /// Represents the right node
+            /// </summary>
             Right,
+
+            /// <summary>
+            /// represents the left node
+            /// </summary>
             Left
-        };
+        }
 
         /// <summary>
-        /// The operator character
+        /// Gets or sets the operator
         /// </summary>
         public char Operator { get; set; }
 
         /// <summary>
-        /// Points to the left tree node
+        /// Gets or sets the left node
         /// </summary>
         public ExpressionTreeNode Left { get; set; }
 
         /// <summary>
-        /// Points to right tree node
+        /// Gets or sets the right node
         /// </summary>
         public ExpressionTreeNode Right { get; set; }
     }

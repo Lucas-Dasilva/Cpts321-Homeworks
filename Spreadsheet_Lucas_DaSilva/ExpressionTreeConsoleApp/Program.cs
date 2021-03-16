@@ -1,5 +1,4 @@
-﻿
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="Program.cs" company="CompanyName">
 //     Company copyright tag.
 // </copyright>
@@ -12,7 +11,7 @@ namespace CptS321
     /// <summary>
     /// Opening Class of Setup, where we initialize Setup object and call setup.run
     /// </summary>
-    class Program
+    public class Program
     {
         /// <summary>
         /// Start of project
@@ -20,7 +19,6 @@ namespace CptS321
         /// <param name="args">arguments passed if any</param>
         public static void Main(string[] args)
         {
-
             while (true)
             {
                 Setup initialize = new Setup();

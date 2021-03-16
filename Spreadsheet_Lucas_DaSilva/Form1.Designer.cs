@@ -5,8 +5,16 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
-    partial class Form1
+    /// <summary>
+    /// Partial class for creating the form
+    /// </summary>
+    public partial class Form1
     {
+        /// <summary>
+        /// Data grid view object
+        /// </summary>
+        private System.Windows.Forms.DataGridView dataGridView1;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -18,10 +26,11 @@ namespace CptS321
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -36,9 +45,8 @@ namespace CptS321
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
+            
             // dataGridView1
-            // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -47,10 +55,8 @@ namespace CptS321
             this.dataGridView1.RowHeadersWidth = 50;
             this.dataGridView1.Size = new System.Drawing.Size(1263, 447);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
+            
             // Form1
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1181, 450);
@@ -62,10 +68,6 @@ namespace CptS321
             this.ResumeLayout(false);
 
         }
-
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
-

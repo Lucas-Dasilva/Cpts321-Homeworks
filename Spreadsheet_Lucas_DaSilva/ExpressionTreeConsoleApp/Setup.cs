@@ -82,6 +82,7 @@ namespace CptS321
                         Environment.Exit(0); // Terminates Console
                         break;
                 }
+
                 selectedIndex = mainMenu.Run(prompt);
             }
             while (selectedIndex != 3);

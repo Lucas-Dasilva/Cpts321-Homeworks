@@ -1,7 +1,15 @@
-using NUnit.Framework;
-
+//-----------------------------------------------------------------------
+// <copyright file="ExpressionTreeTests.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace CptS321
 {
+    using NUnit.Framework;
+
+    /// <summary>
+    /// Tests for Expression Tree
+    /// </summary>
     [TestFixture]
     public class ExpressionTreeTests
     {
@@ -15,7 +23,12 @@ namespace CptS321
         [TestCase("2 + 3 * 5", ExpectedResult = 17.0)]
         [TestCase("5/0", ExpectedResult = double.PositiveInfinity)]
 
-        public double TestEvaluate(string expression)
+        /// <summary>
+        /// Tests evaluate function
+        /// </summary>
+        /// <param name="expression">The string expression</param>
+        /// <returns>The evaluated value</returns>
+        public double TestEvaluate(string[] expression)
         {
             ExpressionTree exp = new ExpressionTree(expression);
             return exp.Evaluate();

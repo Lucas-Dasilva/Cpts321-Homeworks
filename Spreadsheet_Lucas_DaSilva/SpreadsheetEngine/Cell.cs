@@ -13,21 +13,35 @@ namespace CptS321
     public abstract class Cell : INotifyPropertyChanged
     {
         /// <summary>
-        /// Represents cell even changed
+        /// private readonly integers initialized
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly int rowIndex, columnIndex;
+
+        /// <summary>
+        /// String of cell
+        /// </summary>
+        private string text;
+
+        /// <summary>
+        /// Evaluated value of the cell
+        /// </summary>
+        private string value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
         /// </summary>
         /// <param name="rowIndex"> new row index </param>
         /// <param name="colIndex"> new column index </param>
-
         public Cell(int rowIndex, int colIndex)
         {
             this.rowIndex = rowIndex;
             this.columnIndex = colIndex;
         }
+
+        /// <summary>
+        /// Represents cell even changed
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// getter for row index
@@ -39,7 +53,7 @@ namespace CptS321
         }
 
         /// <summary>
-        /// getter for collumn index
+        /// getter for column index
         /// </summary>
         /// <returns>Returns Column index</returns>
         public int GetColumnIndex()
@@ -65,11 +79,15 @@ namespace CptS321
             return this.value;
         }
 
+        /// <summary>
+        /// Set the test property
+        /// </summary>
+        /// <param name="newText">New text coming in</param>
         public void SetText(string newText)
         {
             // dont change text if they're equal
             // else, change text
-            if(newText == this.text)
+            if (newText == this.text)
             {
                 return;
             }
@@ -84,7 +102,7 @@ namespace CptS321
         /// Sets the value property, protected internal means the member can only
         /// be accessed by a derived class in another assembly
         /// </summary>
-        /// <param name="newValue">New value that's gettting passed in</param>
+        /// <param name="newValue">New value that's getting passed in</param>
         protected internal void SetValue(string newValue)
         {
             this.value = newValue;
@@ -98,23 +116,7 @@ namespace CptS321
         /// <param name="name">The text that will be changed</param>
         protected void OnPropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-        /// <summary>
-        /// private readonly integers initialized
-        /// </summary>
-        protected readonly int rowIndex, columnIndex;
-
-        /// <summary>
-        /// String of cell
-        /// </summary>
-        protected string text;
-
-        /// <summary>
-        /// Evaluated value of the cell
-        /// </summary>
-        protected string value;
-
     }
 }

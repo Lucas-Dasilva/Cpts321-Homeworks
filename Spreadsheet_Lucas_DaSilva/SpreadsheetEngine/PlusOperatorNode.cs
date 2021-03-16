@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="PlusOperatorNode.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace CptS321
 {
+    /// <summary>
+    /// The plus operator class that determines the precedence and calculations
+    /// </summary>
     public class PlusOperatorNode : OperatorNode
     {
         /// <summary>
         /// Plus operator
         /// </summary>
-        public static char Operator => '+';
+        public static new char Operator => '+';
 
         /// <summary>
-        /// Declaring it's precendence
+        /// Declaring it's precedence
         /// </summary>
-        public static ushort Precendence => 7;
+        public static ushort Precedence => 7;
 
         /// <summary>
         /// Declaring the associativity

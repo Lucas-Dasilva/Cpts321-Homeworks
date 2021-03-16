@@ -1,4 +1,9 @@
-﻿using System.Reflection;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -14,6 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("NUnitTestEngine")]
+[assembly: InternalsVisibleTo("NUnitTestExpressionTree")]
 [assembly: InternalsVisibleTo("ExpressionTreeConsoleApp")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

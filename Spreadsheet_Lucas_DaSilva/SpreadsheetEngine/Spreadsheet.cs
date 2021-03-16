@@ -11,14 +11,22 @@ namespace CptS321
     /// <summary>
     /// This class will hold the 2d array of cells
     /// </summary>
-    class Spreadsheet 
+    public class Spreadsheet 
     {
-        private Cell[,] Sheet;
+        /// <summary>
+        /// Represents the a cell in the spreadsheet
+        /// </summary>
+        private Cell[,] sheet;
 
         /// <summary>
-        /// Represents event changed for the cells
+        /// Represents amount of columns
         /// </summary>
-        public event PropertyChangedEventHandler CellPropertyChanged;
+        private int columnCount;
+
+        /// <summary>
+        /// Represents amount of rows
+        /// </summary>
+        private int rowCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Spreadsheet"/> class.
@@ -28,48 +36,56 @@ namespace CptS321
         public Spreadsheet(int numRows, int numColumns)
         {
             // Creating a spreadsheet with 2d array
-            this.Sheet = new Cell[numRows, numColumns];
+            this.sheet = new Cell[numRows, numColumns];
 
             for (int row = 0; row < numRows; row++)
             {
                 for (int col = 0; col < numColumns; col++)
                 {
-                    this.Sheet[row, col] = new InstantiateCell(row, col);
-                    // I don't understand how to subscribe to cell changed 
+                    this.sheet[row, col] = new InstantiateCell(row, col);
                 }
             }
         }
-        public class InstantiateCell : Cell
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="InstantiateCell"/> class
-            /// </summary>
-            /// <param name="newRow"> new column being added </param>
-            /// <param name="newCol"> new row being addded </param>
-            public InstantiateCell(int newRow, int newCol) : base(newCol, newRow)
-            {
-                // I think everything should handle itself inside the Cell constructor
-            }
 
-        }
+        /// <summary>
+        /// Represents event changed for the cells
+        /// </summary>
+        public event PropertyChangedEventHandler CellPropertyChanged;
 
         /// <summary>
         /// Get the cell at given index
         /// </summary>
         /// <param name="rowIndex">index of row</param>
         /// <param name="colIndex">index of column.</param>
-        /// <returns>Int.</returns>
+        /// <returns>The cell location</returns>
         public Cell GetCell(int rowIndex, int colIndex)
         {
             // return null if the cell does not exist
-            if ((Cell)this.Sheet[rowIndex, colIndex] == null)
+            if ((Cell)this.sheet[rowIndex, colIndex] == null)
             {
                 return null;
             }
 
-            return (Cell)this.Sheet[rowIndex, colIndex];
+            return (Cell)this.sheet[rowIndex, colIndex];
         }
 
+        /// <summary>
+        /// Getter for row count
+        /// </summary>
+        /// <returns>the row count</returns>
+        public int GetRowCount()
+        {
+            return this.rowCount;
+        }
+
+        /// <summary>
+        /// Getter for column count
+        /// </summary>
+        /// <returns>the column count</returns>
+        public int GetColumnCount()
+        {
+            return this.columnCount;
+        }
 
         /// <summary>
         /// Create the OnPropertyChanged method to raise the event
@@ -82,24 +98,19 @@ namespace CptS321
         }
 
         /// <summary>
-        /// Getter for row count
+        /// We instantiate a new cell here
         /// </summary>
-        /// <returns>the row count</returns>
-        public int GetRowCount()
+        public class InstantiateCell : Cell
         {
-            return this.rowCount;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="InstantiateCell"/> class
+            /// </summary>
+            /// <param name="newRow"> new column being added </param>
+            /// <param name="newCol"> new row being added </param>
+            public InstantiateCell(int newRow, int newCol) : base(newCol, newRow)
+            {
+                // I think everything should handle itself inside the Cell constructor
+            }
         }
-        /// <summary>
-        /// Getter for column count
-        /// </summary>
-        /// <returns>the column count</returns>
-        public int GetColumnCount()
-        {
-            return this.columnCount;
-        }
-
-        private int columnCount;
-        private int rowCount;
-
     }
 }

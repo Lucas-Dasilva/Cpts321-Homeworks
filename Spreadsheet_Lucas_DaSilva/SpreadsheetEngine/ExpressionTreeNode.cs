@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Spreadsheet.cs" company="Lucas Da Silva 11631988">
+// <copyright file="ExpressionTreeNode.cs" company="Lucas Da Silva 11631988">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------

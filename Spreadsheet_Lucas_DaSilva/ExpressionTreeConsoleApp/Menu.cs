@@ -9,7 +9,7 @@ namespace CptS321
 
     /// <summary>
     /// A custom console menu made by Lucas Da Silva
-    /// Go Cougs!
+    /// Go Cougars!
     /// </summary>
     public class Menu
     {
@@ -23,7 +23,6 @@ namespace CptS321
         /// </summary>
         private string[] options;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Menu"/> class.
         /// </summary>
@@ -35,9 +34,10 @@ namespace CptS321
         }
 
         /// <summary>
-        /// This will handle all the arrow key inputs
+        /// Runs the menu
         /// </summary>
-        /// <returns>Get back selected index</returns>
+        /// <param name="prompt">The prompt that the user sees at the top</param>
+        /// <returns>The selected index for switch statement</returns>
         public int Run(string prompt)
         {
             Console.Clear();
@@ -50,22 +50,24 @@ namespace CptS321
                 this.DisplayOptions(prompt);
                 line = Console.ReadLine(); // Get string
             }
+
             this.selectedIndex = Convert.ToInt32(line);
             Console.Clear();
-            return this.selectedIndex-1;
+            return this.selectedIndex - 1;
         }
         
         /// <summary>
-        /// Display the options of the menu
+        /// Dis the menu options to console
         /// </summary>
+        /// <param name="prompt">The string the user sees</param>
         private void DisplayOptions(string prompt)
         {
             // Main menu message
             Console.WriteLine("Menu (Current expression = \"{0}\")", prompt);
-            for (int i = 0; i < options.Length; i++)
+            for (int i = 0; i < this.options.Length; i++)
             {
                 // Display the options
-                Console.WriteLine("{0}: {1}", i + 1, options[i]);
+                Console.WriteLine("{0}: {1}", i + 1, this.options[i]);
             }
         }
     }

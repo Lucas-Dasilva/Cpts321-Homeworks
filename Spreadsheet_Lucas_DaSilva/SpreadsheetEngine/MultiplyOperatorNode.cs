@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="MultiplyOperatorNode.cs" company="Lucas Da Silva 11631988">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace CptS321
 {
+    /// <summary>
+    /// The multiply class the performs multiplication and determines precedence
+    /// </summary>
     public class MultiplyOperatorNode : OperatorNode
     {
         /// <summary>
         /// Declaring multiplication operator
         /// </summary>
-        public static char Operator => '*';
+        public static new char Operator => '*';
 
         /// <summary>
-        /// Declaring it's precendence
+        /// Declaring it's precedence
         /// </summary>
-        public static ushort Precendence => 6;
+        public static ushort Precedence => 6;
 
         /// <summary>
         /// Declaring it's associativity
