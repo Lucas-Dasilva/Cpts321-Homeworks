@@ -6,7 +6,6 @@
 namespace CptS321
 {
     using System;
-    using System.Collections.Generic;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -69,16 +68,30 @@ namespace CptS321
                         Console.Clear();
                         Console.Write("Enter Variable Name: ");
                         string name = Console.ReadLine();
-                        Console.Clear();
-                        Console.Write("Enter Value for \"{0}\": ", name);
-                        double value = Convert.ToDouble(Console.ReadLine());
-                        tree.SetVariable(name, value);
+                        // check if key is in dictionary
+                        if (tree.CheckDictionary(name))
+                        {
+                            Console.Clear();
+                            Console.Write("Enter Value for \"{0}\": ", name);
+                            double value = Convert.ToDouble(Console.ReadLine());
+                            tree.SetVariable(name, value);
+                        }
+                        else
+                        {
+                            Console.Write("That variable is not in the dictionary...");
+                            Console.ReadLine();
+                        }
                         break;
+
                     case 2:
-                        Console.WriteLine("Value for expression({0}): {1}", prompt, tree.Evaluate().ToString());
+                        // Evaluate the value
+                        Console.Write("Value for expression({0}): {1}\n", prompt, tree.Evaluate().ToString());
+                        Console.Write("Press any key to continue...");
                         Console.ReadLine();
                         break;
+
                     case 3:
+                        // Quit
                         Environment.Exit(0); // Terminates Console
                         break;
                 }

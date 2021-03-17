@@ -17,7 +17,7 @@ namespace CptS321
         /// </summary>
         /// <param name="c">The character of the operator</param>
         /// <returns>Returns the operator Node</returns>
-        public OperatorNode CreateOperatorNode(char c)
+        internal OperatorNode CreateOperatorNode(char c)
         {
             // picking case for operator
             switch (c)

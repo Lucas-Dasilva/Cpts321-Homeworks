@@ -5,12 +5,10 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// The class the represents a constant integer
     /// </summary>
-    public class ConstantNode : ExpressionTreeNode
+    internal class ConstantNode : ExpressionTreeNode
     {
         /// <summary>
         /// The value of the number
@@ -21,7 +19,7 @@ namespace CptS321
         /// Initializes a new instance of the <see cref="ConstantNode"/> class.
         /// </summary>
         /// <param name="value">The value of the integer</param>
-        public ConstantNode(double value)
+        internal ConstantNode(double value)
         {
             this.value = value;
         }

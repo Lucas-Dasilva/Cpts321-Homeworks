@@ -36,8 +36,8 @@ namespace CptS321
                 // If the incoming symbols is a digit
                 // If the incoming symbol is a left parenthesis, push it on the stack.
                 // If the incoming symbol is a right parenthesis: discard the right parenthesis, 
-                // pop and print the stack symbols until you see a left parenthesis.Pop the left
-                // parenthesis and discard it.
+                // pop and print the stack symbols until you see a left parenthesis.
+                // Pop the left parenthesis and discard it.
                 // else, we found an operand so print it postfix
                 if (exp[i] == "*" || exp[i] == "+" || exp[i] == "-" || exp[i] == "/")
                 {

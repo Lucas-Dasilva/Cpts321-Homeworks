@@ -1,17 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Program.cs" company="CompanyName">
+// <copyright file="ConsoleProgram.cs" company="CompanyName">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CptS321
 {
-    using System;
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Opening Class of Setup, where we initialize Setup object and call setup.run
     /// </summary>
-    public class Program
+    public class ConsoleProgram
     {
         /// <summary>
         /// Start of project
@@ -19,11 +16,8 @@ namespace CptS321
         /// <param name="args">arguments passed if any</param>
         public static void Main(string[] args)
         {
-            while (true)
-            {
-                Setup initialize = new Setup();
-                initialize.Start();
-            }
+            Setup initialize = new Setup();
+            initialize.Start();
         }
     }
 }

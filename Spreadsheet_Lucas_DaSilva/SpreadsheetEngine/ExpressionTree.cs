@@ -21,7 +21,7 @@ namespace CptS321
         /// <summary>
         /// Dictionary for holding variables
         /// </summary>
-        private Dictionary<string, double> variables = new Dictionary<string, double>();
+        private Dictionary<string, double> variables;
 
         /// <summary>
         /// The root node, used for evaluating expression
@@ -39,8 +39,9 @@ namespace CptS321
         /// <param name="exp">The expression string</param>
         public ExpressionTree(string[] exp)
         {
-            // Saving expression
-            this.expression = exp; 
+            // Saving expression and creating new dictionary
+            this.expression = exp;
+            this.variables = new Dictionary<string, double>();
 
             // Creating stack of nodes
             Stack<ExpressionTreeNode> nodeStack = new Stack<ExpressionTreeNode>();
@@ -86,6 +87,7 @@ namespace CptS321
                 {
                     try
                     {
+                        this.variables.Add(exp[i], 0);
                         ExpressionTreeNode varNode = new VariableNode(exp[i], ref this.variables);
                         nodeStack.Push(varNode);
                     }
@@ -130,7 +132,7 @@ namespace CptS321
         {
             // If tree is built and all Dictionary names have a value
             // Else, inquire user of error
-            if (this.root != null && this.CheckDictionary())
+            if (this.root != null)
             {
                 return this.EvaluateHelper();
             }
@@ -143,6 +145,22 @@ namespace CptS321
         }
 
         /// <summary>
+        /// Checks if the variable name is in the dictionary
+        /// </summary>
+        /// <returns>Returns true if the key is dictionary</returns>
+        public bool CheckDictionary(string name)
+        {
+            if (this.variables.ContainsKey(name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Evaluates the expression if all variables are filled in
         /// </summary>
         /// <returns>The evaluated expression</returns>
@@ -151,13 +169,5 @@ namespace CptS321
             return this.root.Evaluate();
         }
 
-        /// <summary>
-        /// checks if all variables have a value
-        /// </summary>
-        /// <returns>True if no other variables require a value</returns>
-        private bool CheckDictionary()
-        {
-            return true;
-        }
     }
 }

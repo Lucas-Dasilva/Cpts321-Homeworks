@@ -18,7 +18,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: InternalsVisibleTo("NUnitTestEngine")]
 [assembly: InternalsVisibleTo("NUnitTestExpressionTree")]
 [assembly: InternalsVisibleTo("ExpressionTreeConsoleApp")]
 

@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// The plus operator class that determines the precedence and calculations
     /// </summary>
-    public class PlusOperatorNode : OperatorNode
+    internal class PlusOperatorNode : OperatorNode
     {
         /// <summary>
         /// Plus operator
