@@ -19,7 +19,7 @@ namespace CptS321
         /// Initializes a new instance of the <see cref="ConstantNode"/> class.
         /// </summary>
         /// <param name="value">The value of the integer</param>
-        internal ConstantNode(double value)
+        public ConstantNode(double value)
         {
             this.value = value;
         }

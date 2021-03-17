@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// The minus operator class that performs subtraction
     /// </summary>
-    public class MinusOperatorNode : OperatorNode
+    internal class MinusOperatorNode : OperatorNode
     {
         /// <summary>
         /// Declaring operator character

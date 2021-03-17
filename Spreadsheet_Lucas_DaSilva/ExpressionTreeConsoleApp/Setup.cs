@@ -11,7 +11,7 @@ namespace CptS321
     /// <summary>
     /// Sets up the menu and the project
     /// </summary>
-    public class Setup
+    internal class Setup
     {
         /// <summary>
         /// Starts the menu
@@ -68,6 +68,7 @@ namespace CptS321
                         Console.Clear();
                         Console.Write("Enter Variable Name: ");
                         string name = Console.ReadLine();
+
                         // check if key is in dictionary
                         if (tree.CheckDictionary(name))
                         {
@@ -81,11 +82,12 @@ namespace CptS321
                             Console.Write("That variable is not in the dictionary...");
                             Console.ReadLine();
                         }
+
                         break;
 
                     case 2:
                         // Evaluate the value
-                        Console.Write("Value for expression({0}): {1}\n", prompt, tree.Evaluate().ToString());
+                        Console.Write("Value for expression[{0}]: {1}\n", prompt, tree.Evaluate().ToString());
                         Console.Write("Press any key to continue...");
                         Console.ReadLine();
                         break;

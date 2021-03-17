@@ -11,7 +11,7 @@ namespace CptS321
     /// A custom console menu made by Lucas Da Silva
     /// Go Cougars!
     /// </summary>
-    public class Menu
+    internal class Menu
     {
         /// <summary>
         /// Points to current option

@@ -11,7 +11,7 @@ namespace CptS321
     /// <summary>
     /// This class will hold the 2d array of cells
     /// </summary>
-    public class Spreadsheet 
+    internal class Spreadsheet 
     {
         /// <summary>
         /// Represents the a cell in the spreadsheet

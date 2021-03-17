@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// The class the represents division operations
     /// </summary>
-    public class DivideOperatorNode : OperatorNode
+    internal class DivideOperatorNode : OperatorNode
     {
         /// <summary>
         /// The operation symbol

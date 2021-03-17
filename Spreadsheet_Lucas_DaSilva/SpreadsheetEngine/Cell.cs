@@ -10,7 +10,7 @@ namespace CptS321
     /// <summary>
     /// This class represents one cell in the worksheet
     /// </summary>
-    public abstract class Cell : INotifyPropertyChanged
+    internal abstract class Cell : INotifyPropertyChanged
     {
         /// <summary>
         /// private readonly integers initialized

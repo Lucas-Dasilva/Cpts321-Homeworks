@@ -5,10 +5,10 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
-    using NUnit.Framework;
     using System;
     using System.Text.RegularExpressions;
-
+    using NUnit.Framework;
+    
     /// <summary>
     /// The class for testing infix to postfix
     /// </summary>
@@ -30,12 +30,13 @@ namespace CptS321
         public string TestConvert(string expression)
         {
             InfixToPostfix postfix = new InfixToPostfix();
+
             // Tokenize string 
             string[] tokenizedLine = Regex.Split(expression, @"([*()\^\/]|(?<!E)[\+\-])");
             string[] line = postfix.Convert(tokenizedLine);
             Array.Reverse(line);
 
-            return string.Join("", line);
+            return string.Join(string.Empty, line);
         }
     }
 }

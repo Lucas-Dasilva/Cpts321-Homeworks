@@ -11,13 +11,8 @@ namespace CptS321
     /// <summary>
     /// Parent class to all expression tree nodes and children nodes
     /// </summary>
-    public partial class ExpressionTree
+    internal partial class ExpressionTree
     {
-        /// <summary>
-        /// A check to see if tree was built
-        /// </summary>
-        private bool treeBuilt = false;
-
         /// <summary>
         /// Dictionary for holding variables
         /// </summary>
@@ -54,10 +49,15 @@ namespace CptS321
             {
                 string c = exp[i];
 
+                // checking if string is empty
                 // checking if string is an operrand
                 // Checking if string is a Constant number(double or int)
                 // Else it's a variable
-                if (c == "/" || c == "*" || c == "+" || c == "-")
+                if (c == string.Empty)
+                {
+                    continue;
+                }
+                else if (c == "/" || c == "*" || c == "+" || c == "-")
                 {
                     // Popping two operands 
                     ExpressionTreeNode tmp1 = nodeStack.Pop();
@@ -100,7 +100,6 @@ namespace CptS321
 
             // setting the root to the final pointer to the tree which is usually an operator
             this.root = nodeStack.Peek();
-            this.treeBuilt = true;
         }
 
         /// <summary>
@@ -147,6 +146,7 @@ namespace CptS321
         /// <summary>
         /// Checks if the variable name is in the dictionary
         /// </summary>
+        /// <param name="name">The name of the variable from user</param>
         /// <returns>Returns true if the key is dictionary</returns>
         public bool CheckDictionary(string name)
         {
@@ -168,6 +168,5 @@ namespace CptS321
         {
             return this.root.Evaluate();
         }
-
     }
 }

@@ -5,8 +5,10 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
+    using System;
+    using System.Text.RegularExpressions;
     using NUnit.Framework;
-
+    
     /// <summary>
     /// Tests for Expression Tree
     /// </summary>
@@ -28,9 +30,16 @@ namespace CptS321
         /// </summary>
         /// <param name="expression">The string expression</param>
         /// <returns>The evaluated value</returns>
-        public double TestEvaluate(string[] expression)
+        public double TestEvaluate(string expression)
         {
-            ExpressionTree exp = new ExpressionTree(expression);
+            // Formating
+            InfixToPostfix postfix = new InfixToPostfix();
+            string[] tokenizedLine = Regex.Split(expression, @"([*()\^\/]|(?<!E)[\+\-])");
+            string[] line = postfix.Convert(tokenizedLine);
+            Array.Reverse(line);
+
+            // Performing evaluation
+            ExpressionTree exp = new ExpressionTree(line);
             return exp.Evaluate();
         }
     }

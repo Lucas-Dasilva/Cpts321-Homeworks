@@ -10,7 +10,7 @@ namespace CptS321
     /// <summary>
     /// Variable node class, for calculating and storing variables
     /// </summary>
-    public class VariableNode : ExpressionTreeNode
+    internal class VariableNode : ExpressionTreeNode
     {
         /// <summary>
         /// The name of the variable
@@ -23,11 +23,11 @@ namespace CptS321
         private Dictionary<string, double> variables;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VariableNode" class./>
+        /// Initializes a new instance of the <see cref="VariableNode"/> class.
         /// </summary>
-        /// <param name="name">Name of variable</param>
-        /// <param name="variables">The reference to the dictionary</param>
-        internal VariableNode(string name, ref Dictionary<string, double> var)
+        /// <param name="name">Variable name</param>
+        /// <param name="var">Reference to dictionary</param>
+        public VariableNode(string name, ref Dictionary<string, double> var)
         {
             this.name = name;
             this.variables = var;

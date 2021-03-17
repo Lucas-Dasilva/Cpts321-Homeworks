@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// Abstract used to call Evaluate on each operation node
     /// </summary>
-    public abstract class ExpressionTreeNode
+    internal abstract class ExpressionTreeNode
     {
         /// <summary>
         /// Evaluates the nodes based on operation

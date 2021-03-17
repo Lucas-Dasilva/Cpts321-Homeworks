@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// An abstract class used for assigning value of operator node and it's children
     /// </summary>
-    public abstract class OperatorNode : ExpressionTreeNode
+    internal abstract class OperatorNode : ExpressionTreeNode
     {
         /// <summary>
         /// Creating an associative type for operator node

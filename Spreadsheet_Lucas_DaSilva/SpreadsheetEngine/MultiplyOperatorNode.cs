@@ -8,7 +8,7 @@ namespace CptS321
     /// <summary>
     /// The multiply class the performs multiplication and determines precedence
     /// </summary>
-    public class MultiplyOperatorNode : OperatorNode
+    internal class MultiplyOperatorNode : OperatorNode
     {
         /// <summary>
         /// Declaring multiplication operator
