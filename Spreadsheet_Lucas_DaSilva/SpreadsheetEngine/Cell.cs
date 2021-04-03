@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
+    using System;
     using System.ComponentModel;
 
     /// <summary>
@@ -18,12 +19,12 @@ namespace CptS321
         private readonly int rowIndex, columnIndex;
 
         /// <summary>
-        /// String of cell
+        /// the cell text
         /// </summary>
         private string text;
 
         /// <summary>
-        /// Evaluated value of the cell
+        /// The actual value of the cell
         /// </summary>
         private string value;
 
@@ -44,6 +45,76 @@ namespace CptS321
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
+        /// Gets or sets text
+        /// </summary>
+        public string Text
+        {
+            // getter for the cell text
+            get
+            {
+                return this.text;
+            }
+
+            // Setter for the cell text
+            set
+            {
+                try
+                {
+                    if (value != this.text)
+                    {
+                        this.text = value;
+                        this.OnPropertyChanged("Text");
+                    }
+                }
+                catch
+                {
+                    throw new MemberAccessException("You need to be a Spreadsheet member to access this Object");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the cell
+        /// </summary>
+        public string Value
+        {
+            // getter for the cell value
+            get
+            {
+                // return this.value;
+                if (this.text != null)
+                {
+                    if (this.text[0] == '=')
+                    {
+                        return this.value;
+                    }
+                    else
+                    {
+                        return this.text;
+                    }
+                }
+                else
+                {
+                    return this.text;
+                }
+            }
+
+            // Setter for the cell value
+            set
+            {
+                try
+                {
+                    this.value = value;
+                    this.OnPropertyChanged("Value");
+                }
+                catch
+                {
+                    throw new MemberAccessException("You need to be a Spreadsheet member to access this Object");
+                }
+            }
+        }
+
+        /// <summary>
         /// getter for row index
         /// </summary>
         /// <returns>Returns row index</returns>
@@ -59,54 +130,6 @@ namespace CptS321
         public int GetColumnIndex()
         {
             return this.columnIndex;
-        }
-
-        /// <summary>
-        /// Getter for text property
-        /// </summary>
-        /// <returns>The text</returns>
-        public string GetText()
-        {
-            return this.text;
-        }
-
-        /// <summary>
-        /// Getter for value
-        /// </summary>
-        /// <returns>the value</returns>
-        public string GetValue()
-        {
-            return this.value;
-        }
-
-        /// <summary>
-        /// Set the test property
-        /// </summary>
-        /// <param name="newText">New text coming in</param>
-        public void SetText(string newText)
-        {
-            // dont change text if they're equal
-            // else, change text
-            if (newText == this.text)
-            {
-                return;
-            }
-            else
-            {
-                this.text = newText;
-                this.OnPropertyChanged("Text");
-            }
-        }
-
-        /// <summary>
-        /// Sets the value property, protected internal means the member can only
-        /// be accessed by a derived class in another assembly
-        /// </summary>
-        /// <param name="newValue">New value that's getting passed in</param>
-        protected internal void SetValue(string newValue)
-        {
-            this.value = newValue;
-            this.OnPropertyChanged("Value");
         }
 
         /// <summary>
