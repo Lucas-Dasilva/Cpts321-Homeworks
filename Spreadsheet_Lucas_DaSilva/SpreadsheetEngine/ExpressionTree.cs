@@ -144,6 +144,21 @@ namespace CptS321
         }
 
         /// <summary>
+        /// Gets a list of variables in the dictionary
+        /// </summary>
+        /// <returns>String array of variables</returns>
+        public List<string> GetAllVariables()
+        {
+            List<string> varList = new List<string>();
+            foreach (string var in this.variables.Keys)
+            {
+                varList.Add(var);
+            }
+
+            return varList;
+        }
+
+        /// <summary>
         /// Checks if the variable name is in the dictionary
         /// </summary>
         /// <param name="name">The name of the variable from user</param>

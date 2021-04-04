@@ -14,11 +14,6 @@ namespace CptS321
     internal abstract class Cell : INotifyPropertyChanged
     {
         /// <summary>
-        /// private readonly integers initialized
-        /// </summary>
-        private readonly int rowIndex, columnIndex;
-
-        /// <summary>
         /// the cell text
         /// </summary>
         private string text;
@@ -31,18 +26,23 @@ namespace CptS321
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
         /// </summary>
-        /// <param name="rowIndex"> new row index </param>
-        /// <param name="colIndex"> new column index </param>
-        public Cell(int rowIndex, int colIndex)
+        public Cell()
         {
-            this.rowIndex = rowIndex;
-            this.columnIndex = colIndex;
+            this.text = string.Empty;
+            this.value = string.Empty;
+            this.ColumnIndex = 0;
+            this.RowIndex = 0;
         }
 
         /// <summary>
         /// Represents cell even changed
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets or sets each expression for a cell
+        /// </summary>
+        public ExpressionTree MyExpressionTree { get; set; }
 
         /// <summary>
         /// Gets or sets text
@@ -60,10 +60,16 @@ namespace CptS321
             {
                 try
                 {
-                    if (value != this.text)
+                    // Checks if its an empty string and if it's the same
+                    // else, Don't raise event
+                    if (this.text != null && value != this.text && value != string.Empty)
                     {
                         this.text = value;
                         this.OnPropertyChanged("Text");
+                    }
+                    else
+                    {
+                        this.text = string.Empty;
                     }
                 }
                 catch
@@ -81,9 +87,12 @@ namespace CptS321
             // getter for the cell value
             get
             {
-                // return this.value;
-                if (this.text != null)
+                // Set the value of cell
+                // else, Don't raise event
+                if (this.text != null && this.text != string.Empty)
                 {
+                    // Check if text is an expression
+                    // Else, it's not an expression
                     if (this.text[0] == '=')
                     {
                         return this.value;
@@ -102,6 +111,7 @@ namespace CptS321
             // Setter for the cell value
             set
             {
+                // Raise event handler
                 try
                 {
                     this.value = value;
@@ -115,26 +125,27 @@ namespace CptS321
         }
 
         /// <summary>
-        /// getter for row index
+        /// Gets or sets row index
         /// </summary>
-        /// <returns>Returns row index</returns>
-        public int GetRowIndex()
-        {
-            return this.rowIndex;
-        }
+        public int RowIndex { get; set; }
 
         /// <summary>
-        /// getter for column index
+        /// Gets or sets Column index
         /// </summary>
-        /// <returns>Returns Column index</returns>
-        public int GetColumnIndex()
+        public int ColumnIndex { get; set; }
+
+        /// <summary>
+        /// Event Handler anytime a cell's text is changed.
+        /// </summary>
+        /// <param name="sender">Object sender</param>
+        /// <param name="e">Event argument</param>
+        public void CellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            return this.columnIndex;
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.PropertyName));
         }
 
         /// <summary>
         /// Create the OnPropertyChanged method to raise the event
-        /// The calling member's name will be used as the parameter.
         /// </summary>
         /// <param name="name">The text that will be changed</param>
         protected void OnPropertyChanged(string name)

@@ -28,7 +28,7 @@ namespace CptS321
             this.spreadsheet = new Spreadsheet(50, 26);
 
             // Subscribe to the event
-            this.spreadsheet.CellPropertyChanged += this.CellPropertyChanged;
+            this.spreadsheet.PropertyChanged += this.CellPropertyChanged;
         }
 
         /// <summary>
@@ -68,9 +68,7 @@ namespace CptS321
             Cell cell = sender as Cell;
             if (cell != null && e.PropertyName == "Cell Changed!")
             {
-                int row = cell.GetRowIndex();
-                int col = cell.GetColumnIndex();
-                this.dataGridView1.Rows[row].Cells[col].Value = cell.Value;
+                this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = cell.Value;
             }
         }
 
