@@ -65,23 +65,6 @@ namespace CptS321
         public Cell[,] SheetArray { get; set; }
 
         /// <summary>
-        /// Get the cell at given index
-        /// </summary>
-        /// <param name="rowIndex">index of row</param>
-        /// <param name="colIndex">index of column.</param>
-        /// <returns>The cell location</returns>
-        public Cell GetCell(int rowIndex, int colIndex)
-        {
-            // return null if the cell does not exist
-            if ((Cell)this.SheetArray[rowIndex, colIndex] == null)
-            {
-                return null;
-            }
-
-            return (Cell)this.SheetArray[rowIndex, colIndex];
-        }
-
-        /// <summary>
         /// Getter for row count
         /// </summary>
         /// <returns>the row count</returns>
@@ -147,29 +130,35 @@ namespace CptS321
                             // Scroll through each substring in the expression
                             foreach (string s in line)
                             {
-                                // Get the cell from the substring, which is a variable name
-                                var tempCell = this.GetCell(s);
-
-                                // Get the value of that cell
-                                string stringCellValue = this.GetValueOfCellAt(s);
-                                
-                                // Check if substring is a variable
+                                // Check if substring in the variable dictionary
+                                // else, evaluate expression as is
                                 if (cell.MyExpressionTree.CheckDictionary(s))
                                 {
+                                    // Get the cell from the substring, which is a variable name
+                                    var tempCell = this.GetCell(s);
+
+                                    // Get the value of that cell
+                                    string stringCellValue = this.GetValueOfCellAt(s);
+
                                     // Try to parse the string to a double so we can evaluate
                                     if (double.TryParse(stringCellValue, out double cellValue))
                                     {
                                         cell.MyExpressionTree.SetVariable(s, cellValue);
                                         this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = cell.MyExpressionTree.Evaluate().ToString();
                                     }
-                                }
 
-                                // If the cell is not null then we can subscribe to it
-                                // Subscribing to it ensures that it will automatically update
-                                // when we change a different cell that references tempCell
-                                if (tempCell != null)
+                                    // If the cell is not null then we can subscribe to it
+                                    // Subscribing to it ensures that it will automatically update
+                                    // when we change a different cell that references tempCell
+                                    if (tempCell != null)
+                                    {
+                                        tempCell.PropertyChanged += cell.CellPropertyChanged;
+                                    }
+                                }
+                                else
                                 {
-                                    tempCell.PropertyChanged += cell.CellPropertyChanged;
+                                    this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = cell.MyExpressionTree.Evaluate().ToString();
+                                    this.OnPropertyChanged("Text", cell);
                                 }
                             }
                         }
@@ -179,7 +168,7 @@ namespace CptS321
                         }
                         catch (Exception exc)
                         {
-                            throw new Exception("Unhandled exception in Spreadsheet class", exc);
+                            throw new Exception("Unhandled exception in Spreadsheet Engine class", exc);
                         }
                     }
                     else
@@ -189,22 +178,44 @@ namespace CptS321
                     }
 
                     // Raise cell property changed event, where we send in the cell that was changed
-                    this.OnPropertyChanged(cell);
+                    this.OnPropertyChanged("Text", cell);
+                }
+                else if (e.PropertyName == "bgColor")
+                {
+                    this.OnPropertyChanged("bgColor", cell);
                 }
             }
             else
             {
-                throw new Exception("Not of type cell");
+                throw new Exception("Sender is not of type cell in spreadsheet class");
             }
         }
 
         /// <summary>
-        /// Create OnPropertyChanged method to raise the changed cell event
+        /// Invokes the property changed event which alerts the form of which property of the cell is being changed
         /// </summary>
-        /// <param name="cell">The reference object cell</param>
-        protected void OnPropertyChanged(Cell cell)
+        /// <param name="name">The name of property that's being changed</param>
+        /// <param name="cell">The cell whose property is being changed</param>
+        protected void OnPropertyChanged(string name, Cell cell)
         {
-            this.PropertyChanged?.Invoke(cell, new PropertyChangedEventArgs("Cell Changed!"));
+            this.PropertyChanged?.Invoke(cell, new PropertyChangedEventArgs(name));
+        }
+
+        /// <summary>
+        /// Get the cell at given index
+        /// </summary>
+        /// <param name="rowIndex">index of row</param>
+        /// <param name="colIndex">index of column.</param>
+        /// <returns>The cell location</returns>
+        private Cell GetCell(int rowIndex, int colIndex)
+        {
+            // return null if the cell does not exist
+            if ((Cell)this.SheetArray[rowIndex, colIndex] == null)
+            {
+                return null;
+            }
+
+            return (Cell)this.SheetArray[rowIndex, colIndex];
         }
 
         /// <summary>
@@ -221,10 +232,13 @@ namespace CptS321
 
             int row;
             int column;
-            if (int.TryParse(name.Substring(1), out row))
+            if (Regex.Matches(name, @"[a-zA-Z]").Count > 0)
             {
-                column = this.CellColumnToIndex(name[0]);
-                return this.GetCell(row - 1, column);
+                if (int.TryParse(name.Substring(1), out row))
+                {
+                    column = this.CellColumnToIndex(name[0]);
+                    return this.GetCell(row - 1, column);
+                }
             }
 
             // index out of bounds or other error.

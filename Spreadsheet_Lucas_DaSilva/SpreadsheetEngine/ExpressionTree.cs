@@ -87,9 +87,19 @@ namespace CptS321
                 {
                     try
                     {
-                        this.variables.Add(exp[i], 0);
-                        ExpressionTreeNode varNode = new VariableNode(exp[i], ref this.variables);
-                        nodeStack.Push(varNode);
+                        if (this.CheckDictionary(exp[i]))
+                        {
+                            // Update key value if already exists
+                            this.variables[exp[i]] = 0.0;
+                            ExpressionTreeNode varNode = new VariableNode(exp[i], ref this.variables);
+                            nodeStack.Push(varNode);
+                        }
+                        else
+                        {
+                            this.variables.Add(exp[i], 0);
+                            ExpressionTreeNode varNode = new VariableNode(exp[i], ref this.variables);
+                            nodeStack.Push(varNode);
+                        }
                     }
                     catch (Exception e)
                     {

@@ -7,6 +7,7 @@ namespace CptS321
 {
     using System;
     using System.ComponentModel;
+    using System.Drawing;
     using System.Windows.Forms;
 
     /// <summary>
@@ -66,9 +67,13 @@ namespace CptS321
         private void CellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Cell cell = sender as Cell;
-            if (cell != null && e.PropertyName == "Cell Changed!")
+            if (cell != null && e.PropertyName == "Text")
             {
                 this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = cell.Value;
+            }
+            else if (e.PropertyName == "bgColor")
+            {
+                this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Style.BackColor = this.UIntToColor(cell.BGColor);
             }
         }
 
@@ -113,6 +118,67 @@ namespace CptS321
                 this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = string.Empty;
                 this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = string.Empty;
             }
+        }
+
+        /// <summary>
+        /// Opens color change dialog box
+        /// </summary>
+        /// <param name="sender">The click</param>
+        /// <param name="e">Event arguments e</param>
+        private void ChangeBackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the user has selected atleast one cell before opening bgColor box
+            if (this.dataGridView1.SelectedCells.Count >= 1)
+            {
+                ColorDialog myDialog = new ColorDialog();
+
+                // Update the text box color if the user clicks OK 
+                if (myDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Color color = myDialog.Color;
+
+                    // For each cell celeted, set the spreadsheet array BG color to it
+                    foreach (DataGridViewCell cell in this.dataGridView1.SelectedCells)
+                    {
+                        this.spreadsheet.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = this.ColorToUInt(myDialog.Color);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts unsigned integer to color 
+        /// </summary>
+        /// <param name="color">the representation of the color in unsigned form</param>
+        /// <returns>The color from the integer</returns>
+        private Color UIntToColor(uint color)
+        {
+            byte a = (byte)(color >> 24);
+            byte r = (byte)(color >> 16);
+            byte g = (byte)(color >> 8);
+            byte b = (byte)(color >> 0);
+            return Color.FromArgb(a, r, g, b);
+        }
+
+        /// <summary>
+        /// Convert from Color to unsigned integer
+        /// </summary>
+        /// <param name="color">The color from dialog box</param>
+        /// <returns>The "unsigned integer" representation of the color</returns>
+        private uint ColorToUInt(Color color)
+        {
+            return (uint)((color.A << 24) | (color.R << 16) |
+                          (color.G << 8) | (color.B << 0));
+        }
+
+        private void undoTextChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

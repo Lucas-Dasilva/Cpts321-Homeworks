@@ -24,6 +24,11 @@ namespace CptS321
         private string value;
 
         /// <summary>
+        /// The color of each cell
+        /// </summary>
+        private uint backgroundColor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
         /// </summary>
         public Cell()
@@ -32,17 +37,13 @@ namespace CptS321
             this.value = string.Empty;
             this.ColumnIndex = 0;
             this.RowIndex = 0;
+            this.backgroundColor = 0xFFFFFFFF;
         }
 
         /// <summary>
         /// Represents cell even changed
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Gets or sets each expression for a cell
-        /// </summary>
-        public ExpressionTree MyExpressionTree { get; set; }
 
         /// <summary>
         /// Gets or sets text
@@ -62,19 +63,19 @@ namespace CptS321
                 {
                     // Checks if its an empty string and if it's the same
                     // else, Don't raise event
-                    if (this.text != null && value != this.text && value != string.Empty)
+                    if (value == string.Empty)
+                    {
+                        this.text = string.Empty;
+                    }
+                    else
                     {
                         this.text = value;
                         this.OnPropertyChanged("Text");
                     }
-                    else
-                    {
-                        this.text = string.Empty;
-                    }
                 }
                 catch
                 {
-                    throw new MemberAccessException("You need to be a Spreadsheet member to access this Object");
+                    throw new Exception("You need to be a Spreadsheet member to access this Object");
                 }
             }
         }
@@ -119,7 +120,30 @@ namespace CptS321
                 }
                 catch
                 {
-                    throw new MemberAccessException("You need to be a Spreadsheet member to access this Object");
+                    throw new Exception("Error setting value in Cell class");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the cell
+        /// </summary>
+        public uint BGColor
+        {
+            // getter for the background color
+            // setter for the background color
+            get
+            {
+                return this.backgroundColor;
+            }
+
+            set
+            {
+                // Invoke property changed event if we change color
+                if (value != this.backgroundColor)
+                {
+                    this.backgroundColor = value;
+                    this.OnPropertyChanged("bgColor");
                 }
             }
         }
@@ -133,6 +157,11 @@ namespace CptS321
         /// Gets or sets Column index
         /// </summary>
         public int ColumnIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets each expression for a cell
+        /// </summary>
+        public ExpressionTree MyExpressionTree { get; set; }
 
         /// <summary>
         /// Event Handler anytime a cell's text is changed.
