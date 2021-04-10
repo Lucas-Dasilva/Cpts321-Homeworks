@@ -25,7 +25,16 @@ namespace CptS321
         /// </summary>
         private int rowCount;
 
-        private Stack<UndoRedoCollection> Undos;
+        /// <summary>
+        /// Stack of undo commands
+        /// </summary>
+        private Stack<UndoRedoCollection> undoStack = new Stack<UndoRedoCollection>();
+
+        /// <summary>
+        /// Stack of redo commands
+        /// </summary>
+        private Stack<UndoRedoCollection> redoStack = new Stack<UndoRedoCollection>();
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Spreadsheet"/> class.
@@ -67,6 +76,39 @@ namespace CptS321
         public Cell[,] SheetArray { get; set; }
 
         /// <summary>
+        /// Adds a cell to the undoStack so the user can undo this operation.
+        /// </summary>
+        /// <param name="undoRedoCell"></param>
+        /// <param name="whatChanged"></param>
+        public void AddUndo(UndoRedoCollection undo)
+        {
+            undoStack.Push(undo);
+        }
+
+        /// <summary>
+        /// Adds a cell to the redoStack so the user can redo this operation.
+        /// </summary>
+        /// <param name="undoRedoCell"></param>
+        /// <param name="whatChanged"></param>
+        //public void AddRedo(Spreadsheet s)
+        //{
+        //    redoStack.Push(s);
+        //}
+
+        public void Undo(Spreadsheet s)
+        {
+            UndoRedoCollection collection = undoStack.Pop();
+            undoStack.Push(collection.Do(s));
+        }
+
+        public void Redo(Spreadsheet s)
+        {
+            UndoRedoCollection collection = redoStack.Pop();
+            undoStack.Push(collection.Do(s));
+            this.OnPropertyChanged("bgColor", cell);
+        }
+
+        /// <summary>
         /// Getter for row count
         /// </summary>
         /// <returns>the row count</returns>
@@ -82,6 +124,24 @@ namespace CptS321
         public int GetColumnCount()
         {
             return this.columnCount;
+        }
+
+        /// <summary>
+        /// Getter for column count
+        /// </summary>
+        /// <returns>the column count</returns>
+        public int GetRedoStackCount()
+        {
+            return this.redoStack.Count;
+        }
+
+        /// <summary>
+        /// Getter for column count
+        /// </summary>
+        /// <returns>the column count</returns>
+        public int GetUndoStackCount()
+        {
+            return this.undoStack.Count;
         }
 
         /// <summary>
@@ -209,7 +269,7 @@ namespace CptS321
         /// <param name="rowIndex">index of row</param>
         /// <param name="colIndex">index of column.</param>
         /// <returns>The cell location</returns>
-        private Cell GetCell(int rowIndex, int colIndex)
+        public Cell GetCell(int rowIndex, int colIndex)
         {
             // return null if the cell does not exist
             if ((Cell)this.SheetArray[rowIndex, colIndex] == null)

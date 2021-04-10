@@ -55,8 +55,10 @@
     <Compile Include="ExpressionTree\PlusOperatorNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spreadsheet.cs" />
+    <Compile Include="UndoRedo\UndoBgColor.cs" />
     <Compile Include="UndoRedo\UndoRedoCollection.cs" />
     <Compile Include="ExpressionTree\VariableNode.cs" />
+    <Compile Include="UndoRedo\UndoText.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

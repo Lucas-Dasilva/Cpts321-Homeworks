@@ -3,17 +3,26 @@
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
+using System.Collections.Generic;
+
 namespace CptS321
 {
     /// <summary>
     /// Holds the collection of Undo and Redo actions
     /// </summary>
-    internal class UndoRedoCollection : ICommand<string>
+    internal class UndoRedoCollection
     {
         /// <summary>
         /// The property that was changed
         /// </summary>
         private string changedProperty;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ICommand[] commands;
+
+
         public UndoRedoCollection()
         {
             //TODO:
@@ -23,9 +32,10 @@ namespace CptS321
         /// 
         /// </summary>
         /// <param name="propertyName"></param>
-        public UndoRedoCollection(string propertyName)
+        public UndoRedoCollection(string propertyName, ICommand[] cmd)
         {
             this.changedProperty = propertyName;
+            this.commands = cmd;
         }
 
         /// <summary>
@@ -46,14 +56,17 @@ namespace CptS321
             }
         }
 
-        public string Do(string input)
+        public UndoRedoCollection Do(Spreadsheet s)
         {
-            throw new System.NotImplementedException();
-        }
+            List<ICommand> cmdList = new List<ICommand>();
 
-        public string Undo(string input)
-        {
-            throw new System.NotImplementedException();
+            foreach (ICommand cmd in this.commands)
+            {
+                cmdList.Add(cmd.Do(s));
+            }
+
+            return new UndoRedoCollection(this.changedProperty, cmdList.ToArray());
+
         }
     }
 }

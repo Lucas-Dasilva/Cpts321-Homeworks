@@ -6,6 +6,7 @@
 namespace CptS321
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
@@ -30,6 +31,8 @@ namespace CptS321
 
             // Subscribe to the event
             this.spreadsheet.PropertyChanged += this.CellPropertyChanged;
+            this.undoChangeToolStripMenuItem.Enabled = false;
+            this.redoToolStripMenuItem.Enabled = false;
         }
 
         /// <summary>
@@ -82,9 +85,18 @@ namespace CptS321
         /// </summary>
         /// <param name="sender">Click object</param>
         /// <param name="e">Event arguments</param>
-        private void UndoTextChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UndoChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.spreadsheet.Undo(this.spreadsheet);
 
+            if (spreadsheet.GetUndoStackCount() == 0)
+            {
+                this.undoChangeToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                this.undoChangeToolStripMenuItem.Enabled = true;
+            }
         }
 
         /// <summary>
@@ -94,6 +106,15 @@ namespace CptS321
         /// <param name="e">Event arguments</param>
         private void RedoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.spreadsheet.Redo(this.spreadsheet);
+            if (this.spreadsheet.GetRedoStackCount() == 0)
+            {
+                this.redoToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                this.redoToolStripMenuItem.Enabled = true;
+            }
 
         }
 
@@ -104,6 +125,8 @@ namespace CptS321
         /// <param name="e">Event arguments e</param>
         private void ChangeBackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<ICommand> undoList = new List<ICommand>();
+
             // Check if the user has selected atleast one cell before opening bgColor box
             if (this.dataGridView1.SelectedCells.Count >= 1)
             {
@@ -117,8 +140,14 @@ namespace CptS321
                     // For each cell celeted, set the spreadsheet array BG color to it
                     foreach (DataGridViewCell cell in this.dataGridView1.SelectedCells)
                     {
+                        Cell tempCell = this.spreadsheet.GetCell(cell.RowIndex, cell.ColumnIndex);
                         this.spreadsheet.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = this.ColorToUInt(myDialog.Color);
+                        
+                        undoList.Add(new UndoBgColor(this.ColorToUInt(myDialog.Color), tempCell.BGColor, cell.RowIndex, cell.ColumnIndex));
                     }
+
+                    this.spreadsheet.AddUndo(new UndoRedoCollection("BgColor", undoList.ToArray()));
+                    this.undoChangeToolStripMenuItem.Enabled = true;
                 }
             }
         }
@@ -146,7 +175,10 @@ namespace CptS321
         {
             string msg = string.Format("Finished Editing Cell at ({0}, {1})", e.ColumnIndex, e.RowIndex);
             this.Text = msg;
-            string temp;
+            string temp = string.Empty;
+            List<ICommand> undoList = new List<ICommand>();
+            Cell cell = this.spreadsheet.GetCell(e.RowIndex, e.ColumnIndex);
+            string oldText = cell.Text;
 
             // Checking if user is deleting the cell value
             if (this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
@@ -164,6 +196,12 @@ namespace CptS321
                 this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = string.Empty;
                 this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = string.Empty;
             }
+            cell.Text = temp;
+
+            undoList.Add(new UndoText(cell.Text, oldText, cell.RowIndex, cell.ColumnIndex));
+            spreadsheet.AddUndo(new UndoRedoCollection("Text", undoList.ToArray()));
+            this.undoChangeToolStripMenuItem.Enabled = true;
+
         }
 
         /// <summary>
@@ -189,6 +227,11 @@ namespace CptS321
         {
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
