@@ -103,7 +103,7 @@ namespace CptS321
             this.dataGridView1.Location = new System.Drawing.Point(0, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 50;
-            this.dataGridView1.Size = new System.Drawing.Size(1263, 447);
+            this.dataGridView1.Size = new System.Drawing.Size(1181, 447);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
@@ -116,7 +116,7 @@ namespace CptS321
             this.cellToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1181, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(575, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -140,14 +140,14 @@ namespace CptS321
             this.undoTextChangeToolStripMenuItem.Name = "undoTextChangeToolStripMenuItem";
             this.undoTextChangeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoTextChangeToolStripMenuItem.Text = "Undo text change";
-            this.undoTextChangeToolStripMenuItem.Click += new System.EventHandler(this.undoTextChangeToolStripMenuItem_Click);
+            this.undoTextChangeToolStripMenuItem.Click += new System.EventHandler(this.UndoTextChangeToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.RedoToolStripMenuItem_Click);
             // 
             // cellToolStripMenuItem
             // 
@@ -168,7 +168,7 @@ namespace CptS321
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 450);
+            this.ClientSize = new System.Drawing.Size(575, 450);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.dataGridView1);
             this.MainMenuStrip = this.menuStrip1;

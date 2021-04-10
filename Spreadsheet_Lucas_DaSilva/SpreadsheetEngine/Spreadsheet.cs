@@ -25,6 +25,8 @@ namespace CptS321
         /// </summary>
         private int rowCount;
 
+        private Stack<UndoRedoCollection> Undos;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Spreadsheet"/> class.
         /// </summary>

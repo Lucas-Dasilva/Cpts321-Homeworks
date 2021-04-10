@@ -299,15 +299,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <project key="-802323005">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="Spreadsheet.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
       <settingsFile>2021/02/03 14:31:28.965</settingsFile>
-      <sourceFile>2021/04/09 17:32:41.819</sourceFile>
+      <sourceFile>2021/04/09 18:17:43.051</sourceFile>
       <parser>2021/02/03 14:31:28.993</parser>
       <StyleCop.CSharp.DocumentationRules>2021/02/03 14:31:28.993</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-353571034</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -324,18 +320,10 @@
       <StyleCop.CSharp.SpacingRules>2021/02/03 14:31:28.993</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.SpacingRules" rule="ClosingParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1009">
-        <context>Invalid spacing around the closing parenthesis.</context>
-        <line>101</line>
-        <index>3630</index>
-        <endIndex>3630</endIndex>
-        <startLine>101</startLine>
-        <startColumn>60</startColumn>
-        <endLine>101</endLine>
-        <endColumn>60</endColumn>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
+  <project key="-802323005">
+    <configuration>
+    </configuration>
+  </project>
 </stylecopresultscache>

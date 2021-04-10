@@ -42,19 +42,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
-    <Compile Include="ConstantNode.cs" />
-    <Compile Include="DivideOperatorNode.cs" />
-    <Compile Include="ExpressionTree.cs" />
-    <Compile Include="ExpressionTreeNode.cs" />
-    <Compile Include="InfixToPostfix.cs" />
-    <Compile Include="MinusOperatorNode.cs" />
-    <Compile Include="MultiplyOperatorNode.cs" />
-    <Compile Include="OperatorNode.cs" />
-    <Compile Include="OperatorNodeFactory.cs" />
-    <Compile Include="PlusOperatorNode.cs" />
+    <Compile Include="ExpressionTree\ConstantNode.cs" />
+    <Compile Include="ExpressionTree\DivideOperatorNode.cs" />
+    <Compile Include="ExpressionTree\ExpressionTree.cs" />
+    <Compile Include="ExpressionTree\ExpressionTreeNode.cs" />
+    <Compile Include="UndoRedo\ICommand.cs" />
+    <Compile Include="ExpressionTree\InfixToPostfix.cs" />
+    <Compile Include="ExpressionTree\MinusOperatorNode.cs" />
+    <Compile Include="ExpressionTree\MultiplyOperatorNode.cs" />
+    <Compile Include="ExpressionTree\OperatorNode.cs" />
+    <Compile Include="ExpressionTree\OperatorNodeFactory.cs" />
+    <Compile Include="ExpressionTree\PlusOperatorNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spreadsheet.cs" />
-    <Compile Include="VariableNode.cs" />
+    <Compile Include="UndoRedo\UndoRedoCollection.cs" />
+    <Compile Include="ExpressionTree\VariableNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

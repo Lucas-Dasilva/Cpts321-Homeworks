@@ -78,6 +78,52 @@ namespace CptS321
         }
 
         /// <summary>
+        /// On click, we undo last change
+        /// </summary>
+        /// <param name="sender">Click object</param>
+        /// <param name="e">Event arguments</param>
+        private void UndoTextChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// On click, we redo last change
+        /// </summary>
+        /// <param name="sender">Click object</param>
+        /// <param name="e">Event arguments</param>
+        private void RedoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Opens color change dialog box
+        /// </summary>
+        /// <param name="sender">The click</param>
+        /// <param name="e">Event arguments e</param>
+        private void ChangeBackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the user has selected atleast one cell before opening bgColor box
+            if (this.dataGridView1.SelectedCells.Count >= 1)
+            {
+                ColorDialog myDialog = new ColorDialog();
+
+                // Update the text box color if the user clicks OK 
+                if (myDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Color color = myDialog.Color;
+
+                    // For each cell celeted, set the spreadsheet array BG color to it
+                    foreach (DataGridViewCell cell in this.dataGridView1.SelectedCells)
+                    {
+                        this.spreadsheet.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = this.ColorToUInt(myDialog.Color);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Represents a cell being edited
         /// </summary>
         /// <param name="sender">Sender object</param>
@@ -121,32 +167,6 @@ namespace CptS321
         }
 
         /// <summary>
-        /// Opens color change dialog box
-        /// </summary>
-        /// <param name="sender">The click</param>
-        /// <param name="e">Event arguments e</param>
-        private void ChangeBackgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Check if the user has selected atleast one cell before opening bgColor box
-            if (this.dataGridView1.SelectedCells.Count >= 1)
-            {
-                ColorDialog myDialog = new ColorDialog();
-
-                // Update the text box color if the user clicks OK 
-                if (myDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Color color = myDialog.Color;
-
-                    // For each cell celeted, set the spreadsheet array BG color to it
-                    foreach (DataGridViewCell cell in this.dataGridView1.SelectedCells)
-                    {
-                        this.spreadsheet.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = this.ColorToUInt(myDialog.Color);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Converts unsigned integer to color 
         /// </summary>
         /// <param name="color">the representation of the color in unsigned form</param>
@@ -169,16 +189,6 @@ namespace CptS321
         {
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
-        }
-
-        private void undoTextChangeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
