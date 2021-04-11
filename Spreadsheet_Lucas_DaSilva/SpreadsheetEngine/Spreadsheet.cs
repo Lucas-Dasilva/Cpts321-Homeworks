@@ -35,7 +35,6 @@ namespace CptS321
         /// </summary>
         private Stack<UndoRedoCollection> redoStack = new Stack<UndoRedoCollection>();
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Spreadsheet"/> class.
         /// </summary>
@@ -78,34 +77,54 @@ namespace CptS321
         /// <summary>
         /// Adds a cell to the undoStack so the user can undo this operation.
         /// </summary>
-        /// <param name="undoRedoCell"></param>
-        /// <param name="whatChanged"></param>
+        /// <param name="undo">The collection of undo commands</param>
         public void AddUndo(UndoRedoCollection undo)
         {
-            undoStack.Push(undo);
+            this.undoStack.Push(undo);
         }
 
         /// <summary>
         /// Adds a cell to the redoStack so the user can redo this operation.
         /// </summary>
-        /// <param name="undoRedoCell"></param>
-        /// <param name="whatChanged"></param>
-        //public void AddRedo(Spreadsheet s)
-        //{
-        //    redoStack.Push(s);
-        //}
-
-        public void Undo(Spreadsheet s)
+        /// <param name="redo">The collection of redo commands</param>
+        public void AddRedo(UndoRedoCollection redo)
         {
-            UndoRedoCollection collection = undoStack.Pop();
-            undoStack.Push(collection.Do(s));
+            this.redoStack.Push(redo);
         }
 
+        /// <summary>
+        /// Undoes the last item in the undo stack
+        /// </summary>
+        /// <param name="s">the sheet array</param>
+        public void Undo(Spreadsheet s)
+        {
+            if (this.undoStack.Count > 0)
+            {
+                // We pop the commands that we need to execute
+                UndoRedoCollection undoCollection = this.undoStack.Pop();
+
+                // Execute Undo
+                undoCollection.ExecuteUndo(s);
+
+                // We want to push the command that was last executed into the redo stack
+                this.redoStack.Push(undoCollection);
+            }
+        }
+
+        /// <summary>
+        /// Redoes the last item in the redo stack
+        /// </summary>
+        /// <param name="s">The sheet array</param>
         public void Redo(Spreadsheet s)
         {
-            UndoRedoCollection collection = redoStack.Pop();
-            undoStack.Push(collection.Do(s));
-            this.OnPropertyChanged("bgColor", cell);
+            // We pop the commands that we need to execute
+            UndoRedoCollection redoCollection = this.redoStack.Pop();
+
+            // Execute Redo
+            redoCollection.ExecuteUndo(s);
+
+            // We want to push the command that was last executed into the undo stack
+            this.undoStack.Push(redoCollection);
         }
 
         /// <summary>
@@ -145,6 +164,68 @@ namespace CptS321
         }
 
         /// <summary>
+        /// Get the cell at given index
+        /// </summary>
+        /// <param name="rowIndex">index of row</param>
+        /// <param name="colIndex">index of column.</param>
+        /// <returns>The cell location</returns>
+        public Cell GetCell(int rowIndex, int colIndex)
+        {
+            // return null if the cell does not exist
+            if ((Cell)this.SheetArray[rowIndex, colIndex] == null)
+            {
+                return null;
+            }
+
+            return (Cell)this.SheetArray[rowIndex, colIndex];
+        }
+
+        /// <summary>
+        /// Gets the cell at specified coordinates of the cell in a string
+        /// </summary>
+        /// <param name="name">The coordinates of the cell</param>
+        /// <returns>The specified cell</returns>
+        public Cell GetCell(string name)
+        {
+            if (name.Length == 0)
+            {
+                return null;
+            }
+
+            int row;
+            int column;
+            if (Regex.Matches(name, @"[a-zA-Z]").Count > 0)
+            {
+                if (int.TryParse(name.Substring(1), out row))
+                {
+                    column = this.CellColumnToIndex(name[0]);
+                    return this.GetCell(row - 1, column);
+                }
+            }
+
+            // index out of bounds or other error.
+            return null;
+        }
+
+        /// <summary>
+        /// Get the string of the property that was changed from the undo stack
+        /// </summary>
+        /// <returns>String of property change</returns>
+        public string PeekUndoStack()
+        {
+            return this.undoStack.Peek().ChangedProperty;
+        }
+
+        /// <summary>
+        /// Get the string of the property that was changed from the redo stack
+        /// </summary>
+        /// <returns>String of property change</returns>
+        public string PeekRedoStack()
+        {
+            return this.redoStack.Peek().ChangedProperty;
+        }
+
+        /// <summary>
         /// Create the OnPropertyChanged method to raise the event
         /// The calling member's name will be used as the parameter.
         /// </summary>
@@ -160,7 +241,12 @@ namespace CptS321
                 if (e.PropertyName == "Text")
                 {
                     // Check if cell is an expressive value
-                    if (cell != null && cell.Text[0] == '=')
+                    // Check if the string is empty
+                    if (cell.Text == string.Empty)
+                    {
+                        cell.MyExpressionTree = null;
+                    }
+                    else if (cell != null && cell.Text[0] == '=')
                     {
                         try
                         {
@@ -261,50 +347,6 @@ namespace CptS321
         protected void OnPropertyChanged(string name, Cell cell)
         {
             this.PropertyChanged?.Invoke(cell, new PropertyChangedEventArgs(name));
-        }
-
-        /// <summary>
-        /// Get the cell at given index
-        /// </summary>
-        /// <param name="rowIndex">index of row</param>
-        /// <param name="colIndex">index of column.</param>
-        /// <returns>The cell location</returns>
-        public Cell GetCell(int rowIndex, int colIndex)
-        {
-            // return null if the cell does not exist
-            if ((Cell)this.SheetArray[rowIndex, colIndex] == null)
-            {
-                return null;
-            }
-
-            return (Cell)this.SheetArray[rowIndex, colIndex];
-        }
-
-        /// <summary>
-        /// Gets the cell at specified coordinates of the cell in a string
-        /// </summary>
-        /// <param name="name">The coordinates of the cell</param>
-        /// <returns>The specified cell</returns>
-        private Cell GetCell(string name)
-        {
-            if (name.Length == 0)
-            {
-                return null;
-            }
-
-            int row;
-            int column;
-            if (Regex.Matches(name, @"[a-zA-Z]").Count > 0)
-            {
-                if (int.TryParse(name.Substring(1), out row))
-                {
-                    column = this.CellColumnToIndex(name[0]);
-                    return this.GetCell(row - 1, column);
-                }
-            }
-
-            // index out of bounds or other error.
-            return null;
         }
 
         /// <summary>

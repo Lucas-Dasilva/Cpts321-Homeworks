@@ -89,14 +89,25 @@ namespace CptS321
         {
             this.spreadsheet.Undo(this.spreadsheet);
 
-            if (spreadsheet.GetUndoStackCount() == 0)
+            // If no more undos to do, disable it
+            // else, enable it
+            if (this.spreadsheet.GetUndoStackCount() == 0)
             {
                 this.undoChangeToolStripMenuItem.Enabled = false;
             }
             else
             {
                 this.undoChangeToolStripMenuItem.Enabled = true;
+
+                // Change text of undo message
+                this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
             }
+
+            // Since we just undid something, we will enable the redo button
+            this.redoToolStripMenuItem.Enabled = true;
+
+            // Change text of undo message
+            this.redoToolStripMenuItem.Text = "Redo " + this.spreadsheet.PeekRedoStack();
         }
 
         /// <summary>
@@ -106,7 +117,11 @@ namespace CptS321
         /// <param name="e">Event arguments</param>
         private void RedoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Perform redo
             this.spreadsheet.Redo(this.spreadsheet);
+
+            // Disable undo button if the stack is empty
+            // else, enable it
             if (this.spreadsheet.GetRedoStackCount() == 0)
             {
                 this.redoToolStripMenuItem.Enabled = false;
@@ -114,12 +129,20 @@ namespace CptS321
             else
             {
                 this.redoToolStripMenuItem.Enabled = true;
+
+                // Change text of Redo message
+                this.redoToolStripMenuItem.Text = "Redo " + this.spreadsheet.PeekRedoStack();
             }
 
+            // Since we just pressed redo, we will enable the undo button
+            this.undoChangeToolStripMenuItem.Enabled = true;
+
+            // Change text of undo message
+            this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
         }
 
         /// <summary>
-        /// Opens color change dialog box
+        /// Allow user to change color of each individual cell
         /// </summary>
         /// <param name="sender">The click</param>
         /// <param name="e">Event arguments e</param>
@@ -140,14 +163,25 @@ namespace CptS321
                     // For each cell celeted, set the spreadsheet array BG color to it
                     foreach (DataGridViewCell cell in this.dataGridView1.SelectedCells)
                     {
+                        // Reference back the old color of the cell to send to Undo Command
                         Cell tempCell = this.spreadsheet.GetCell(cell.RowIndex, cell.ColumnIndex);
+                        uint oldColor = tempCell.BGColor;
+                        
+                        // Set the spreadsheet BgColor property
                         this.spreadsheet.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = this.ColorToUInt(myDialog.Color);
                         
-                        undoList.Add(new UndoBgColor(this.ColorToUInt(myDialog.Color), tempCell.BGColor, cell.RowIndex, cell.ColumnIndex));
+                        // Add undo command to the list. We have to use list because lots of cell colors can be changed
+                        undoList.Add(new UndoBgColor(this.ColorToUInt(myDialog.Color), oldColor, cell.RowIndex, cell.ColumnIndex));
                     }
 
+                    // Add undo command to the stack
                     this.spreadsheet.AddUndo(new UndoRedoCollection("BgColor", undoList.ToArray()));
+
+                    // Allow users to clicck undo button
                     this.undoChangeToolStripMenuItem.Enabled = true;
+
+                    // Change text of undo message
+                    this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
                 }
             }
         }
@@ -175,33 +209,41 @@ namespace CptS321
         {
             string msg = string.Format("Finished Editing Cell at ({0}, {1})", e.ColumnIndex, e.RowIndex);
             this.Text = msg;
-            string temp = string.Empty;
+            string newText = string.Empty;
+
             List<ICommand> undoList = new List<ICommand>();
             Cell cell = this.spreadsheet.GetCell(e.RowIndex, e.ColumnIndex);
+
             string oldText = cell.Text;
 
             // Checking if user is deleting the cell value
             if (this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                temp = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                newText = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
                 // Setting the cell text value
-                this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = temp;
+                this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = newText;
 
                 // Setting the data grid value
                 this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Value;
+
+                // Add command to the command list
+                undoList.Add(new UndoText(newText, oldText, cell.RowIndex, cell.ColumnIndex));
+                
+                // Allow users to undo by adding the commands to the undo stack
+                this.spreadsheet.AddUndo(new UndoRedoCollection("Text", undoList.ToArray()));
+                
+                // We enable the undo button since an action was just performed
+                this.undoChangeToolStripMenuItem.Enabled = true;
+
+                // Change text of undo message
+                this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
             }
             else
             {
                 this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = string.Empty;
                 this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = string.Empty;
             }
-            cell.Text = temp;
-
-            undoList.Add(new UndoText(cell.Text, oldText, cell.RowIndex, cell.ColumnIndex));
-            spreadsheet.AddUndo(new UndoRedoCollection("Text", undoList.ToArray()));
-            this.undoChangeToolStripMenuItem.Enabled = true;
-
         }
 
         /// <summary>
@@ -227,11 +269,6 @@ namespace CptS321
         {
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
-        }
-
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

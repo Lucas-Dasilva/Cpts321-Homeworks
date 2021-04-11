@@ -1,9 +1,5 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="-229637317">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
@@ -96,11 +92,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <sourcecode name="Form1.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="Form1.Designer.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
       <settingsFile>2021/02/03 14:31:28.965</settingsFile>
-      <sourceFile>2021/04/09 21:49:55.692</sourceFile>
+      <sourceFile>2021/04/10 21:16:47.771</sourceFile>
       <parser>2021/02/03 14:31:28.993</parser>
       <StyleCop.CSharp.DocumentationRules>2021/02/03 14:31:28.993</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-353571034</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -117,45 +113,17 @@
       <StyleCop.CSharp.SpacingRules>2021/02/03 14:31:28.993</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="ClosingCurlyBracketsMustNotBePrecededByBlankLine" ruleCheckId="SA1508">
-        <context>A closing curly bracket must not be preceded by a blank line.</context>
-        <line>94</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainMultipleBlankLinesInARow" ruleCheckId="SA1507">
-        <context>The code must not contain multiple blank lines in a row.</context>
-        <line>100</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="ClosingCurlyBracketsMustNotBePrecededByBlankLine" ruleCheckId="SA1508">
-        <context>A closing curly bracket must not be preceded by a blank line.</context>
-        <line>101</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="ClosingCurlyBracketMustBeFollowedByBlankLine" ruleCheckId="SA1513">
-        <context>Statements or elements wrapped in curly brackets must be followed by a blank line.</context>
-        <line>199</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
-        <context>The call to spreadsheet must begin with the 'this.', 'base.', 'object.' or 'Form1.' or 'Form.' prefix to indicate the intended method call. </context>
-        <line>203</line>
-        <index>7938</index>
-        <endIndex>7948</endIndex>
-        <startLine>203</startLine>
-        <startColumn>13</startColumn>
-        <endLine>203</endLine>
-        <endColumn>23</endColumn>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
-  <sourcecode name="Form1.Designer.cs" parser="StyleCop.CSharp.CsParser">
+  <project key="-229637317">
+    <configuration>
+    </configuration>
+  </project>
+  <sourcecode name="Form1.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
       <settingsFile>2021/02/03 14:31:28.965</settingsFile>
-      <sourceFile>2021/04/09 21:52:55.922</sourceFile>
+      <sourceFile>2021/04/10 21:40:01.499</sourceFile>
       <parser>2021/02/03 14:31:28.993</parser>
       <StyleCop.CSharp.DocumentationRules>2021/02/03 14:31:28.993</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-353571034</StyleCop.CSharp.DocumentationRules.FilesHashCode>

@@ -63,14 +63,14 @@ namespace CptS321
                 {
                     // Checks if its an empty string and if it's the same
                     // else, Don't raise event
-                    if (value == string.Empty)
-                    {
-                        this.text = string.Empty;
-                    }
-                    else
+                    if (value != this.text)
                     {
                         this.text = value;
                         this.OnPropertyChanged("Text");
+                    }
+                    else
+                    {
+                        this.text = string.Empty;
                     }
                 }
                 catch

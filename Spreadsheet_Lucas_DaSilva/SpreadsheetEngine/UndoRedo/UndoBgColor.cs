@@ -5,35 +5,38 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
+    /// <summary>
+    /// Holds the command for executing a change of color on a cell
+    /// </summary>
     internal class UndoBgColor : ICommand
     {
         /// <summary>
-        /// 
+        /// The current color of the cell
         /// </summary>
         private uint currentColor;
 
         /// <summary>
-        /// 
+        /// The last color of the cell
         /// </summary>
         private uint oldColor;
 
         /// <summary>
-        /// 
+        /// The cell row index
         /// </summary>
         private int cellRow;
 
         /// <summary>
-        /// 
+        /// the cell column index
         /// </summary>
         private int cellColumn;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UndoText"/> class.
+        /// Initializes a new instance of the <see cref="UndoBgColor"/> class.
         /// </summary>
-        /// <param name="currentText"></param>
-        /// <param name="oldText"></param>
-        /// <param name="rowIndex"></param>
-        /// <param name="colIndex"></param>
+        /// <param name="currentColor">The current color of cell</param>
+        /// <param name="oldColor">The previous color of the cell</param>
+        /// <param name="rowIndex">cell row index</param>
+        /// <param name="colIndex">cell column index</param>
         public UndoBgColor(uint currentColor, uint oldColor, int rowIndex, int colIndex)
         {
             this.currentColor = currentColor;
@@ -43,22 +46,20 @@ namespace CptS321
         }
 
         /// <summary>
-        /// 
+        /// Undo the action that was previously issued
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public ICommand Do(Spreadsheet s)
-        {
-            Cell cell = s.GetCell(this.cellRow, this.cellColumn);
-            uint oldColor = cell.BGColor;
-            cell.BGColor = this.oldColor;
-
-            return new UndoBgColor(oldColor, currentColor, cellRow, cellColumn);
-        }
-
+        /// <param name="s">The reference to the spreadsheet</param>
+        /// <returns>The either Undo Text or Undo Color commands</returns>
         public ICommand Undo(Spreadsheet s)
         {
-            throw new System.NotImplementedException();
+            // For either undo or redo, we want to set up each current and old values
+            Cell cell = s.GetCell(this.cellRow, this.cellColumn);
+            uint tempOldColor = cell.BGColor;
+            this.currentColor = this.oldColor;
+            this.oldColor = tempOldColor;
+            cell.BGColor = this.currentColor;
+
+            return new UndoBgColor(this.currentColor, this.oldColor, this.cellRow, this.cellColumn);
         }
     }
 }

@@ -51,6 +51,16 @@ namespace CptS321
         private System.Windows.Forms.ColorDialog colorDialog1;
 
         /// <summary>
+        /// The undo change button
+        /// </summary>
+        private System.Windows.Forms.ToolStripMenuItem undoChangeToolStripMenuItem;
+        
+        /// <summary>
+        /// The redo change button
+        /// </summary>
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -124,7 +134,6 @@ namespace CptS321
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // cellToolStripMenuItem
             // 
@@ -174,8 +183,5 @@ namespace CptS321
 
         }
         #endregion
-
-        private System.Windows.Forms.ToolStripMenuItem undoChangeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
     }
 }

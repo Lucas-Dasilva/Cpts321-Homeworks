@@ -5,15 +5,16 @@
 //-----------------------------------------------------------------------
 namespace CptS321
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+    /// <summary>
+    /// The command interface for executing undo and redo commands
+    /// </summary>
     internal interface ICommand
     {
-        ICommand Do(Spreadsheet s);
+        /// <summary>
+        /// Undoes the last action executed
+        /// </summary>
+        /// <param name="s">The spreadsheet array</param>
+        /// <returns>Returns the new updated command list</returns>
         ICommand Undo(Spreadsheet s);
     }
 }
