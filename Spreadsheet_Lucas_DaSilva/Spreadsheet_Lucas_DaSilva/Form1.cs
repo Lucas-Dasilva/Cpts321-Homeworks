@@ -9,6 +9,7 @@ namespace CptS321
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
+    using System.IO;
     using System.Windows.Forms;
 
     /// <summary>
@@ -33,6 +34,9 @@ namespace CptS321
             this.spreadsheet.PropertyChanged += this.CellPropertyChanged;
             this.undoChangeToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Enabled = false;
+
+            // Disable save button initially, since nothing is changed
+            this.saveToolStripMenuItem.Enabled = false;
         }
 
         /// <summary>
@@ -78,6 +82,47 @@ namespace CptS321
             {
                 this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Style.BackColor = this.UIntToColor(cell.BGColor);
             }
+        }
+
+        /// <summary>
+        /// Upon activating the trigger, load the file that the user wants
+        /// </summary>
+        /// <param name="sender">Click object</param>
+        /// <param name="e">Click event trigger</param>
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            openFileDialog.InitialDirectory = "C:\\Users\\lucas.dasilva\\Desktop\\SpreadsheetSaveTest";
+            //openFileDialog.Filter = "Xml files (*.txt)|*.txt|All files (*.*)|*.*";
+            //openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+                filePath = openFileDialog.FileName;
+
+                //Read the contents of the file into a stream
+                var fileStream = openFileDialog.OpenFile();
+
+                using (StreamReader reader = new StreamReader(fileStream))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Save spreadsheet data to XML file
+        /// </summary>
+        /// <param name="sender">Click object</param>
+        /// <param name="e">Click event trigger</param>
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
         }
 
         /// <summary>
@@ -269,6 +314,6 @@ namespace CptS321
         {
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
-        }
+        } 
     }
 }
