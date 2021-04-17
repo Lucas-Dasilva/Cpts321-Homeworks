@@ -8,7 +8,9 @@ namespace CptS321
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.IO;
     using System.Text.RegularExpressions;
+    using System.Xml;
 
     /// <summary>
     /// This class will hold the 2d array of cells
@@ -54,6 +56,7 @@ namespace CptS321
                     this.SheetArray[row, col].RowIndex = row;
                     this.SheetArray[row, col].ColumnIndex = col;
                     this.SheetArray[row, col].Text = string.Empty;
+                    this.SheetArray[row, col].StringIndex = this.CoordsToString(row, col);
                     
                     // We are subscribing to each cell
                     this.SheetArray[row, col].PropertyChanged += new PropertyChangedEventHandler(this.CellPropertyChanged);
@@ -226,6 +229,61 @@ namespace CptS321
         }
 
         /// <summary>
+        /// Load xml data into the sheet array
+        /// </summary>
+        /// <param name="stream">The os stream</param>
+        public void LoadXml(Stream stream)
+        {
+            // Clear spreadsheet
+            this.ResetSpreadsheet(50, 26);
+
+            XmlDocument doc = new XmlDocument();
+
+            doc.Load(stream);
+            XmlNodeList coordList = doc.GetElementsByTagName("name");
+
+            XmlNodeList textList = doc.GetElementsByTagName("text");
+
+            XmlNodeList colorList = doc.GetElementsByTagName("bgcolor");
+            for (int i = 0; i < coordList.Count; i++)
+            {
+                Cell loadedCell = GetCell(coordList[i].InnerXml);
+                loadedCell.Text = textList[i].InnerXml;
+                loadedCell.BGColor = Convert.ToUInt32(colorList[i].InnerXml);
+                this.OnPropertyChanged("Cell", loadedCell);
+            }
+
+        }
+        /// <summary>
+        /// Save cell spreadsheet array data to XML
+        /// </summary>
+        /// <param name="stream">The os stream</param>
+        public void SaveToXml(Stream stream)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+
+            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+            {
+                writer.WriteStartElement("spreadsheet");
+
+                foreach (Cell cell in this.SheetArray)
+                {
+                    // Check if cell is not a default cell and that it has been changed by user
+                    if (cell.Text != string.Empty || cell.BGColor != 0xFFFFFFFF)
+                    {
+                        writer.WriteStartElement("cell");
+                        writer.WriteElementString("name", cell.StringIndex);
+                        writer.WriteElementString("bgcolor", cell.BGColor.ToString());
+                        writer.WriteElementString("text", cell.Text);
+                        writer.WriteEndElement();
+                    }
+                }
+                writer.WriteEndElement();
+            }
+        }
+
+        /// <summary>
         /// Create the OnPropertyChanged method to raise the event
         /// The calling member's name will be used as the parameter.
         /// </summary>
@@ -360,6 +418,36 @@ namespace CptS321
         }
 
         /// <summary>
+        /// We are clearing all the spreadsheet data before loading the file data
+        /// </summary>
+        /// <param name="numRows">The number of rows</param>
+        /// <param name="numColumns">the number of columns</param>
+        private void ResetSpreadsheet(int numRows, int numColumns)
+        {
+            // Creating a spreadsheet with 2d array
+            this.SheetArray = new Cell[numRows, numColumns];
+
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numColumns; col++)
+                {
+                    // Instantiating new cell since it's an abstract class
+                    this.SheetArray[row, col] = new InstantiateCell();
+                    this.SheetArray[row, col].RowIndex = row;
+                    this.SheetArray[row, col].ColumnIndex = col;
+                    this.SheetArray[row, col].Text = string.Empty;
+                    this.SheetArray[row, col].StringIndex = this.CoordsToString(row, col);
+
+                    // We are subscribing to each cell
+                    this.SheetArray[row, col].PropertyChanged += new PropertyChangedEventHandler(this.CellPropertyChanged);
+                }
+            }
+
+            this.columnCount = numColumns;
+            this.rowCount = numRows;
+        }
+
+        /// <summary>
         /// Gets the value of a cell at a certain coordinate
         /// </summary>
         /// <param name="coords">The coordinates of the cell or name. (A1 or B2)etc..</param>
@@ -378,6 +466,19 @@ namespace CptS321
             {
                 return "Could not parse column name";
             }
+        }
+
+        /// <summary>
+        /// Transform coordinates of cell into its string form
+        /// </summary>
+        /// <param name="rowIndex">the row index of the cell</param>
+        /// <param name="colIndex">the column index of the cell</param>
+        /// <returns></returns>
+        private string CoordsToString(int rowIndex, int colIndex)
+        {
+            char colName = (char)(colIndex + 65);
+            string rowString = (rowIndex+1).ToString();
+            return (colName + rowString);
         }
 
         /// <summary>

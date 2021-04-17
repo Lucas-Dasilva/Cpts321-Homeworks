@@ -108,10 +108,8 @@ namespace CptS321
                 //Read the contents of the file into a stream
                 var fileStream = openFileDialog.OpenFile();
 
-                using (StreamReader reader = new StreamReader(fileStream))
-                {
-                    fileContent = reader.ReadToEnd();
-                }
+                // Start loading
+                this.spreadsheet.LoadXml(fileStream);
             }
         }
 
@@ -122,7 +120,18 @@ namespace CptS321
         /// <param name="e">Click event trigger</param>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            Stream fileStream;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = AppContext.BaseDirectory;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if ((fileStream = saveFileDialog.OpenFile()) != null)
+                {
+                    this.spreadsheet.SaveToXml(fileStream);
+                    fileStream.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -148,8 +157,10 @@ namespace CptS321
                 this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
             }
 
-            // Since we just undid something, we will enable the redo button
+            // Since we just undid something, we will enable the redo and save button
             this.redoToolStripMenuItem.Enabled = true;
+            this.saveToolStripMenuItem.Enabled = true;
+           
 
             // Change text of undo message
             this.redoToolStripMenuItem.Text = "Redo " + this.spreadsheet.PeekRedoStack();
@@ -181,6 +192,7 @@ namespace CptS321
 
             // Since we just pressed redo, we will enable the undo button
             this.undoChangeToolStripMenuItem.Enabled = true;
+            this.saveToolStripMenuItem.Enabled = true;
 
             // Change text of undo message
             this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
@@ -222,8 +234,9 @@ namespace CptS321
                     // Add undo command to the stack
                     this.spreadsheet.AddUndo(new UndoRedoCollection("BgColor", undoList.ToArray()));
 
-                    // Allow users to clicck undo button
+                    // Allow users to clicck undo and save button
                     this.undoChangeToolStripMenuItem.Enabled = true;
+                    this.saveToolStripMenuItem.Enabled = true;
 
                     // Change text of undo message
                     this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
@@ -280,6 +293,8 @@ namespace CptS321
                 
                 // We enable the undo button since an action was just performed
                 this.undoChangeToolStripMenuItem.Enabled = true;
+                this.saveToolStripMenuItem.Enabled = true;
+
 
                 // Change text of undo message
                 this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();

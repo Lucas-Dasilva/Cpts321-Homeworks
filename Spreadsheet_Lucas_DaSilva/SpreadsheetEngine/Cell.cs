@@ -29,12 +29,19 @@ namespace CptS321
         private uint backgroundColor;
 
         /// <summary>
+        /// The string representation of column index and row index coordinates of cell
+        /// </summary>
+        private string stringIndex;
+
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
         /// </summary>
         public Cell()
         {
             this.text = string.Empty;
             this.value = string.Empty;
+            this.stringIndex = string.Empty;
             this.ColumnIndex = 0;
             this.RowIndex = 0;
             this.backgroundColor = 0xFFFFFFFF;
@@ -147,6 +154,10 @@ namespace CptS321
                 }
             }
         }
+        /// <summary>
+        /// Gets or sets the string representation of the coordinates of the cell
+        /// </summary>
+        public string StringIndex { get; set; }
 
         /// <summary>
         /// Gets or sets row index
