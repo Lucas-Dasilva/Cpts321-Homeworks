@@ -41,6 +41,16 @@ namespace CptS321
         private System.Windows.Forms.ToolStripMenuItem cellToolStripMenuItem;
 
         /// <summary>
+        /// Tool strip for load button
+        /// </summary>
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+
+        /// <summary>
+        /// Tool strip for save button
+        /// </summary>
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+
+        /// <summary>
         /// change background color
         /// </summary>
         private System.Windows.Forms.ToolStripMenuItem changeBackgroundColorToolStripMenuItem;
@@ -202,8 +212,5 @@ namespace CptS321
 
         }
         #endregion
-
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }

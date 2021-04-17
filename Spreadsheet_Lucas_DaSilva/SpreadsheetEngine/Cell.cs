@@ -33,7 +33,6 @@ namespace CptS321
         /// </summary>
         private string stringIndex;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class
         /// </summary>
@@ -154,6 +153,7 @@ namespace CptS321
                 }
             }
         }
+
         /// <summary>
         /// Gets or sets the string representation of the coordinates of the cell
         /// </summary>

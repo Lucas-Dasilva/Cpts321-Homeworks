@@ -231,33 +231,41 @@ namespace CptS321
         /// <summary>
         /// Load xml data into the sheet array
         /// </summary>
-        /// <param name="stream">The os stream</param>
+        /// <param name="stream">The file stream</param>
         public void LoadXml(Stream stream)
         {
             // Clear spreadsheet
             this.ResetSpreadsheet(50, 26);
 
             XmlDocument doc = new XmlDocument();
-
+            
+            // Load the file
             doc.Load(stream);
+
+            // Save all the element tag names into it's appropriate list
             XmlNodeList coordList = doc.GetElementsByTagName("name");
-
             XmlNodeList textList = doc.GetElementsByTagName("text");
-
             XmlNodeList colorList = doc.GetElementsByTagName("bgcolor");
+
+            // Iterate through xml node list, and store each value into the cell
             for (int i = 0; i < coordList.Count; i++)
             {
-                Cell loadedCell = GetCell(coordList[i].InnerXml);
+                Cell loadedCell = this.GetCell(coordList[i].InnerXml);
                 loadedCell.Text = textList[i].InnerXml;
                 loadedCell.BGColor = Convert.ToUInt32(colorList[i].InnerXml);
+
+                // Commit changes to the cell
                 this.OnPropertyChanged("Cell", loadedCell);
             }
 
+            this.undoStack.Clear();
+            this.redoStack.Clear();
         }
+
         /// <summary>
         /// Save cell spreadsheet array data to XML
         /// </summary>
-        /// <param name="stream">The os stream</param>
+        /// <param name="stream">The file stream</param>
         public void SaveToXml(Stream stream)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
@@ -279,6 +287,7 @@ namespace CptS321
                         writer.WriteEndElement();
                     }
                 }
+
                 writer.WriteEndElement();
             }
         }
@@ -473,12 +482,12 @@ namespace CptS321
         /// </summary>
         /// <param name="rowIndex">the row index of the cell</param>
         /// <param name="colIndex">the column index of the cell</param>
-        /// <returns></returns>
+        /// <returns>The string form for the coordinates</returns>
         private string CoordsToString(int rowIndex, int colIndex)
         {
             char colName = (char)(colIndex + 65);
-            string rowString = (rowIndex+1).ToString();
-            return (colName + rowString);
+            string rowString = (rowIndex + 1).ToString();
+            return colName + rowString;
         }
 
         /// <summary>

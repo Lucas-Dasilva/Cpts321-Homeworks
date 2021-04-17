@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("NUnitTestExpressionTree")]
 [assembly: InternalsVisibleTo("ExpressionTreeConsoleApp")]
 [assembly: InternalsVisibleTo("Spreadsheet_Lucas_DaSilva")]
+[assembly: InternalsVisibleTo("NUnitTestSpreadsheet")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

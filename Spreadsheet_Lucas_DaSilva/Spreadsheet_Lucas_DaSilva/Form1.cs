@@ -95,17 +95,16 @@ namespace CptS321
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            openFileDialog.InitialDirectory = "C:\\Users\\lucas.dasilva\\Desktop\\SpreadsheetSaveTest";
-            //openFileDialog.Filter = "Xml files (*.txt)|*.txt|All files (*.*)|*.*";
-            //openFileDialog.FilterIndex = 2;
+            openFileDialog.InitialDirectory = AppContext.BaseDirectory;
+
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Get the path of specified file
+                // Get the path of specified file
                 filePath = openFileDialog.FileName;
 
-                //Read the contents of the file into a stream
+                // Read the contents of the file into a stream
                 var fileStream = openFileDialog.OpenFile();
 
                 // Start loading
@@ -124,10 +123,12 @@ namespace CptS321
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.InitialDirectory = AppContext.BaseDirectory;
 
+            // Pop up the save file dialog box
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 if ((fileStream = saveFileDialog.OpenFile()) != null)
                 {
+                    // Start saving
                     this.spreadsheet.SaveToXml(fileStream);
                     fileStream.Close();
                 }
@@ -161,7 +162,6 @@ namespace CptS321
             this.redoToolStripMenuItem.Enabled = true;
             this.saveToolStripMenuItem.Enabled = true;
            
-
             // Change text of undo message
             this.redoToolStripMenuItem.Text = "Redo " + this.spreadsheet.PeekRedoStack();
         }
@@ -294,7 +294,6 @@ namespace CptS321
                 // We enable the undo button since an action was just performed
                 this.undoChangeToolStripMenuItem.Enabled = true;
                 this.saveToolStripMenuItem.Enabled = true;
-
 
                 // Change text of undo message
                 this.undoChangeToolStripMenuItem.Text = "Undo " + this.spreadsheet.PeekUndoStack();
