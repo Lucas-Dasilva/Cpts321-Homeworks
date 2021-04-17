@@ -48,6 +48,7 @@ namespace CptS321
                 ss.SheetArray[cell.RowIndex, cell.ColumnIndex].BGColor = color;
                 ss.SheetArray[cell.RowIndex, cell.ColumnIndex].Text = text[i];
             }
+            //ss.SaveToXml()
                 
             return false;
         }
