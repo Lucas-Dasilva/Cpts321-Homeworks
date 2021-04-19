@@ -96,7 +96,7 @@ namespace CptS321
                         }
                         else
                         {
-                            this.variables.Add(exp[i], 0);
+                            this.variables.Add(exp[i], 0.0);
                             ExpressionTreeNode varNode = new VariableNode(exp[i], ref this.variables);
                             nodeStack.Push(varNode);
                         }

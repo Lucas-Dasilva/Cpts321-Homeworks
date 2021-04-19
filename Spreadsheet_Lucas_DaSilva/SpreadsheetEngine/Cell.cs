@@ -74,10 +74,6 @@ namespace CptS321
                         this.text = value;
                         this.OnPropertyChanged("Text");
                     }
-                    else
-                    {
-                        this.text = string.Empty;
-                    }
                 }
                 catch
                 {

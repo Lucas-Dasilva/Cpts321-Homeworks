@@ -338,27 +338,27 @@ namespace CptS321
                             // Build new expression tree
                             InfixToPostfix postfix = new InfixToPostfix();
                             string[] tokenizedLine = Regex.Split(cell.Text.Substring(1), @"([*()\^\/]|(?<!E)[\+\-])");
-                            string[] line = postfix.Convert(tokenizedLine);
-                            Array.Reverse(line);
-                            cell.MyExpressionTree = new ExpressionTree(line);
+                            string[] expression = postfix.Convert(tokenizedLine);
+                            Array.Reverse(expression);
+                            cell.MyExpressionTree = new ExpressionTree(expression);
 
                             // Scroll through each substring in the expression
-                            foreach (string s in line)
+                            foreach (string token in expression)
                             {
                                 // Check if substring in the variable dictionary
                                 // else, evaluate expression as is
-                                if (cell.MyExpressionTree.CheckDictionary(s))
+                                if (cell.MyExpressionTree.CheckDictionary(token))
                                 {
                                     // Get the cell from the substring, which is a variable name
-                                    var tempCell = this.GetCell(s);
+                                    Cell tempCell = this.GetCell(token);
 
                                     // Get the value of that cell
-                                    string stringCellValue = this.GetValueOfCellAt(s);
+                                    string stringCellValue = this.GetValueOfCellAt(token);
 
                                     // Try to parse the string to a double so we can evaluate
                                     if (double.TryParse(stringCellValue, out double cellValue))
                                     {
-                                        cell.MyExpressionTree.SetVariable(s, cellValue);
+                                        cell.MyExpressionTree.SetVariable(token, cellValue);
                                         this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = cell.MyExpressionTree.Evaluate().ToString();
                                     }
 
@@ -469,6 +469,11 @@ namespace CptS321
             if (int.TryParse(coords.Substring(1), out int rowIndex))
             {
                 rowIndex--;
+                if (this.SheetArray[rowIndex, colIndex].Value == string.Empty)
+                {
+                    return "0.0";
+                }
+
                 return this.SheetArray[rowIndex, colIndex].Value;
             }
             else
