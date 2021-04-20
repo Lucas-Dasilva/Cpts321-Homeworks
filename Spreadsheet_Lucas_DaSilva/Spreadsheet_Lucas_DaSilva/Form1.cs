@@ -63,7 +63,10 @@ namespace CptS321
             }
 
             // Resize columns
-            this.dataGridView1.AutoResizeColumns();
+            foreach (DataGridViewColumn col in this.dataGridView1.Columns)
+            {
+                col.Width = 80;
+            }
         }
 
         /// <summary>
@@ -268,17 +271,20 @@ namespace CptS321
             string msg = string.Format("Finished Editing Cell at ({0}, {1})", e.ColumnIndex, e.RowIndex);
             this.Text = msg;
             string newText = string.Empty;
-
+    
             List<ICommand> undoList = new List<ICommand>();
             Cell cell = this.spreadsheet.GetCell(e.RowIndex, e.ColumnIndex);
 
             string oldText = cell.Text;
-
+            
             // Checking if user is deleting the cell value
             if (this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 newText = this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
+                // Create initial circular reference check
+                this.spreadsheet.IsFirstIteration();
+                
                 // Setting the cell text value
                 this.spreadsheet.SheetArray[e.RowIndex, e.ColumnIndex].Text = newText;
 
@@ -328,6 +334,11 @@ namespace CptS321
         {
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
-        } 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

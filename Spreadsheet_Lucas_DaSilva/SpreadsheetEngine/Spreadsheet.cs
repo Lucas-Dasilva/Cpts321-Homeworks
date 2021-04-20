@@ -28,6 +28,22 @@ namespace CptS321
         private int rowCount;
 
         /// <summary>
+        /// Holds the string index and the text of cell
+        /// </summary>
+        private int iteration;
+
+        /// <summary>
+        /// Holds the string index and the text of cell
+        /// </summary>
+        private string[] cellReference;
+
+        /// <summary>
+        /// Holds the string index and the text of cell
+        /// </summary>
+        private string[] tempReference;
+
+
+        /// <summary>
         /// Stack of undo commands
         /// </summary>
         private Stack<UndoRedoCollection> undoStack = new Stack<UndoRedoCollection>();
@@ -76,6 +92,39 @@ namespace CptS321
         /// Gets or sets the a cell in the spreadsheet
         /// </summary>
         public Cell[,] SheetArray { get; set; }
+
+        /// <summary>
+        /// Adds a cell to the undoStack so the user can undo this operation.
+        /// </summary>
+        /// <param name="cell">The collection of undo commands</param>
+        /// <param name="undo">The collection of undo commands</param>
+        public void SetCellCheck(string stringIndex, string cellText)
+        {
+            this.cellReference = new string[2];
+            this.cellReference[0] = stringIndex;
+            this.cellReference[1] = cellText;
+        }   
+        
+        /// <summary>
+        /// Adds a cell to the undoStack so the user can undo this operation.
+        /// </summary>
+        /// <param name="cell">The collection of undo commands</param>
+        /// <param name="undo">The collection of undo commands</param>
+        public void SetTempCellCheck(string stringIndex, string cellText)
+        {
+            this.tempReference = new string[2];
+            this.tempReference[0] = stringIndex;
+            this.tempReference[1] = cellText;
+        }
+
+        /// <summary>
+        /// Sets the iteration of property changed to 0
+        /// </summary>
+        public void IsFirstIteration()
+        {
+            this.iteration = 0;
+        }
+
 
         /// <summary>
         /// Adds a cell to the undoStack so the user can undo this operation.
@@ -174,8 +223,7 @@ namespace CptS321
         /// <returns>The cell location</returns>
         public Cell GetCell(int rowIndex, int colIndex)
         {
-            // return null if the cell does not exist
-            if ((Cell)this.SheetArray[rowIndex, colIndex] == null)
+            if (rowIndex >= this.rowCount || colIndex >= this.columnCount)
             {
                 return null;
             }
@@ -300,6 +348,9 @@ namespace CptS321
         /// <param name="e">Event argument e</param>
         protected void CellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            // Iteration of even property changed
+            this.iteration++;
+
             // Check if it
             if (sender is Cell cell)
             {
@@ -351,6 +402,42 @@ namespace CptS321
                                 {
                                     // Get the cell from the substring, which is a variable name
                                     Cell tempCell = this.GetCell(token);
+                                    
+                                    if (tempCell == null)
+                                    {
+                                        this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = "!(Bad Reference)";
+                                        this.OnPropertyChanged("Text", cell);
+                                        return;
+                                    }
+                                    // If it's the first iteration of property change calls, then set the initial cell and temp cell values
+                                    if (this.iteration == 1)
+                                    {
+                                        this.SetCellCheck(cell.StringIndex, cell.Text);
+                                        this.SetTempCellCheck(tempCell.StringIndex, tempCell.Text);
+                                    }
+                        
+                                    // Check self reference
+                                    if (cell.StringIndex == token)
+                                    {
+                                        //todo
+                                        this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = "!(Self Reference)";
+                                        this.OnPropertyChanged("Text", cell);
+                                        return;
+                                    }
+
+                                    if (this.cellReference != null && this.tempReference != null)
+                                    {
+                                        // Check circular reference
+                                        if (cell.StringIndex == this.cellReference[0] &&
+                                            cell.Text == this.cellReference[1] &&
+                                            tempCell.StringIndex == this.tempReference[0] &&
+                                            tempCell.Text == this.tempReference[1] && iteration > 1)
+                                        {
+                                            this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = "!(Circular Reference)";
+                                            this.OnPropertyChanged("Text", cell);
+                                            return;
+                                        }
+                                    }
 
                                     // Get the value of that cell
                                     string stringCellValue = this.GetValueOfCellAt(token);
