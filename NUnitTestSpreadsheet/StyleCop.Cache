@@ -1,9 +1,5 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="-1545284970">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="SaveLoadTests.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2021/02/03 14:31:28.993</styleCop>
@@ -27,4 +23,8 @@
     </timestamps>
     <violations />
   </sourcecode>
+  <project key="-1545284970">
+    <configuration>
+    </configuration>
+  </project>
 </stylecopresultscache>
