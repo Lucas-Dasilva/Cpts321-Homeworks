@@ -42,7 +42,6 @@ namespace CptS321
         /// </summary>
         private string[] tempReference;
 
-
         /// <summary>
         /// Stack of undo commands
         /// </summary>
@@ -94,22 +93,22 @@ namespace CptS321
         public Cell[,] SheetArray { get; set; }
 
         /// <summary>
-        /// Adds a cell to the undoStack so the user can undo this operation.
+        /// Reference a cell that has been marked with circular reference
         /// </summary>
-        /// <param name="cell">The collection of undo commands</param>
-        /// <param name="undo">The collection of undo commands</param>
+        /// <param name="stringIndex">The string index of the cell</param>
+        /// <param name="cellText">The cell's Text property</param>
         public void SetCellCheck(string stringIndex, string cellText)
         {
             this.cellReference = new string[2];
             this.cellReference[0] = stringIndex;
             this.cellReference[1] = cellText;
-        }   
-        
+        }
+
         /// <summary>
-        /// Adds a cell to the undoStack so the user can undo this operation.
+        /// Reference a cell that has been marked with circular reference
         /// </summary>
-        /// <param name="cell">The collection of undo commands</param>
-        /// <param name="undo">The collection of undo commands</param>
+        /// <param name="stringIndex">The string index of the cell</param>
+        /// <param name="cellText">The cell's Text property</param>
         public void SetTempCellCheck(string stringIndex, string cellText)
         {
             this.tempReference = new string[2];
@@ -124,7 +123,6 @@ namespace CptS321
         {
             this.iteration = 0;
         }
-
 
         /// <summary>
         /// Adds a cell to the undoStack so the user can undo this operation.
@@ -368,19 +366,9 @@ namespace CptS321
                     {
                         try
                         {
-                            //if (this.cellReference != null && this.tempReference != null)
-                            //{
-                            //    if (cell.StringIndex == this.cellReference[0] && cell.Text == this.cellReference[1] && cell.Value == "!(Circular Reference)")
-                            //    {
-                            //        var tempCell = this.GetCell(cellReference[0]);
-                            //        tempCell.PropertyChanged -= cell.CellPropertyChanged;
-                            //    }
-                            //}
-
                             // If the expression tree for this cell has been alive before
                             if (cell.MyExpressionTree != null)
                             {
-    
                                 // Getting all variables from previous expression
                                 List<string> variables = cell.MyExpressionTree.GetAllVariables();
 
@@ -430,48 +418,34 @@ namespace CptS321
                                     // Check self reference
                                     if (cell.StringIndex == token)
                                     {
-                                        //todo
                                         this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = "!(Self Reference)";
                                         this.OnPropertyChanged("Text", cell);
                                         return;
                                     }
 
-                                    // if a cell reference array was created
+                                    // Checking for circular reference
                                     if (this.cellReference != null && this.tempReference != null)
                                     {
-                                        // Check circular reference
-                                        //if (cell.StringIndex == this.cellReference[0] &&
-                                        //    cell.Text == this.cellReference[1] &&
-                                        //    tempCell.StringIndex == this.tempReference[0] &&
-                                        //    tempCell.Text == this.tempReference[1] && iteration > 1)
-                                        //{
-                                        //    this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = "!(Circular Reference)";
-                                        //    this.OnPropertyChanged("Text", cell);
-                                        //    return;
-                                        //}
-
-                                        // Check if tempReference is equalto tempCell
-
-                                        // Check if cellReference is equal to Cell
-                                        if (((cell.StringIndex == this.cellReference[0] && cell.Text == this.cellReference[1] ) ||  (cell.StringIndex == this.tempReference[0] && 
-                                            cell.Text == this.tempReference[1])) && iteration > 2)
+                                        if (tempCell.Value == "!(Circular Reference)")
                                         {
-                                            Cell tempoCell = this.GetCell(cellReference[0]);
+                                            if (tempCell != null)
+                                            {
+                                                string va = this.GetValueOfCellAt(token);
+                                                if (double.TryParse(va, out double cellVal))
+                                                {
+                                                    cell.MyExpressionTree.SetVariable(token, cellVal);
+                                                    this.SheetArray[cell.RowIndex, cell.ColumnIndex].Value = cell.MyExpressionTree.Evaluate().ToString();
+                                                }
 
+                                                return;
+                                            }
+                                        }
+    
+                                        else if (((cell.StringIndex == this.cellReference[0] && cell.Text == this.cellReference[1] ) || (cell.StringIndex == this.tempReference[0] && cell.Text == this.tempReference[1])) && this.iteration > 2)
+                                        {
+                                            Cell tempoCell = this.GetCell(this.cellReference[0]);
                                             this.SheetArray[tempoCell.RowIndex, tempoCell.ColumnIndex].Value = "!(Circular Reference)";
-
-                                            this.OnPropertyChanged("Text", tempoCell);
-
-                                            if (iteration > 50)
-                                            {
-                                                return;
-                                            }
-                                            else
-                                            {
-                                                cell.PropertyChanged += tempoCell.CellPropertyChanged;
-                                                return;
-                                            }
-
+                                            return;
                                         }
                                     }
 
@@ -521,10 +495,6 @@ namespace CptS321
                 else if (e.PropertyName == "bgColor")
                 {
                     this.OnPropertyChanged("bgColor", cell);
-                }
-                else
-                {
-                    cell.PropertyChanged -= cell.CellPropertyChanged;
                 }
             }
             else

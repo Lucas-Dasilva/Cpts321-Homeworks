@@ -339,10 +339,5 @@ namespace CptS321
             return (uint)((color.A << 24) | (color.R << 16) |
                           (color.G << 8) | (color.B << 0));
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

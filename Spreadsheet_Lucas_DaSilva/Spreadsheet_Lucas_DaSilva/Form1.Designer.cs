@@ -117,7 +117,6 @@ namespace CptS321
             this.dataGridView1.Size = new System.Drawing.Size(575, 422);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             // 
             // menuStrip1
