@@ -85,6 +85,10 @@ namespace CptS321
             {
                 this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Style.BackColor = this.UIntToColor(cell.BGColor);
             }
+            else if (e.PropertyName == "Value")
+            {
+                this.dataGridView1.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = cell.Value;
+            }
         }
 
         /// <summary>
